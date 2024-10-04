@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "fantasy-trade-winner-app": {
+    "fantasy_trades_web_app": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/fantasy-trade-winner-app",
+            "outputPath": "dist/fantasy_trades_web_app",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -65,10 +65,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "fantasy-trade-winner-app:build:production"
+              "buildTarget": "fantasy_trades_web_app:build:production"
             },
             "development": {
-              "buildTarget": "fantasy-trade-winner-app:build:development"
+              "buildTarget": "fantasy_trades_web_app:build:development"
             }
           },
           "defaultConfiguration": "development",

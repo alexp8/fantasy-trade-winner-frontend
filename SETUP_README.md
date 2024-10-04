@@ -1,10 +1,8 @@
 ## Setup
 
 ### Tools
-1. Install node.js
-    * https://nodejs.org/en
-2. Install Angular
-    * `npm install -g @angular/cli`
-    * `ng add @angular/material`
+1. Install Docker
+2. Build Docker app
+    * `docker-compose build`
 3. Run server
-    * `fantasy-trade-winner-app/` `ng serve`
+    * `docker-compose up -d`

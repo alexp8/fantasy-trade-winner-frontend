@@ -32,7 +32,7 @@ import { MatNativeDateModule } from '@angular/material/core';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'fantasy-trade-winner-app';
+  title = 'fantasy_trades_web_app';
 
   searchTerm1 = '';
   searchTerm2 = '';

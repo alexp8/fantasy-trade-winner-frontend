@@ -14,16 +14,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have the 'fantasy-trade-winner-app' title`, () => {
+  it(`should have the 'fantasy_trades_web_app' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('fantasy-trade-winner-app');
+    expect(app.title).toEqual('fantasy_trades_web_app');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, fantasy-trade-winner-app');
+    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, fantasy_trades_web_app');
   });
 });
