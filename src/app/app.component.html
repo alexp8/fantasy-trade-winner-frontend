@@ -1,39 +1,6 @@
-<!-- app.component.html -->
-<div class="container">
-
-  <!-- Date Selector -->
-  <div class="date-selector">
-    <mat-form-field appearance="fill">
-      <mat-label>Select Date</mat-label>
-      <input matInput [matDatepicker]="picker" placeholder="Choose a date" (dateChange)="onDateChange($event)">
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
-  </div>
-
-  <!-- Typeahead Searches -->
-  <div class="typeahead-container">
-    <!-- Typeahead Search 1 -->
-    <div class="typeahead-left">
-      <mat-form-field appearance="fill">
-        <mat-label>Search 1</mat-label>
-        <input matInput [(ngModel)]="searchTerm1" [matAutocomplete]="auto1" (ngModelChange)="onSearch1Change($event)">
-        <mat-autocomplete #auto1="matAutocomplete">
-          <mat-option *ngFor="let option of (filteredOptions1$ | async)" [value]="option">{{ option }}</mat-option>
-        </mat-autocomplete>
-      </mat-form-field>
-    </div>
-
-    <!-- Typeahead Search 2 -->
-    <div class="typeahead-right">
-      <mat-form-field appearance="fill">
-        <mat-label>Search 2</mat-label>
-        <input matInput [(ngModel)]="searchTerm2" [matAutocomplete]="auto2" (ngModelChange)="onSearch2Change($event)">
-        <mat-autocomplete #auto2="matAutocomplete">
-          <mat-option *ngFor="let option of (filteredOptions2$ | async)" [value]="option">{{ option }}</mat-option>
-        </mat-autocomplete>
-      </mat-form-field>
-    </div>
-  </div>
+<div class="app-container">
+  <h1>{{ title }}</h1>
   
+  
+  <app-trades></app-trades>
 </div>

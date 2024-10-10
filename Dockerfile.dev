@@ -1,0 +1,14 @@
+# Dockerfile.dev
+FROM node:18 as build
+
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+
+COPY . .
+
+# Use ng serve for development
+CMD ["npm", "start"]
+
+# Expose the port for Angular development server
+EXPOSE 4200

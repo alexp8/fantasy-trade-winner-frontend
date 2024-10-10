@@ -1,0 +1,12 @@
+services:
+  fantasy_trades_web_app:
+    container_name: fantasy_trades_web_app
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./src:/app/src
+      - ./public:/app/public
+    ports:
+      - "4200:4200"
+    command: ["npm", "start"]

@@ -1,0 +1,25 @@
+<div class="trade-search">
+    <h2>Find Trades</h2>
+  
+    <label for="sleeperLeagueId">Sleeper League ID:</label>
+    <input type="text" id="sleeperLeagueId" #leagueIdInput placeholder="Enter Sleeper League ID">
+  
+    <button (click)="fetchTrades(leagueIdInput.value)">Fetch Trades</button>
+  
+    <div *ngIf="error" class="error">{{ error }}</div>
+  
+    <div *ngIf="trades">
+      <h3>Trade Results (Page {{ trades?.page }} of {{ trades?.total_pages }})</h3>
+  
+      <!-- <div *ngFor="let trade of trades.trades">
+        <h4>Trade ID: {{ trade.transaction_id }}</h4>
+        <p>Created At: {{ trade.created_at_formatted }}</p>
+        <p>Week: {{ trade.week }}</p>
+        <div *ngFor="let rosterId of trade.roster_ids">
+          <p>Roster ID: {{ rosterId }}</p>
+        </div>
+        <hr>
+      </div> -->
+    </div>
+  </div>
+  

@@ -1,22 +1,13 @@
 services:
-  angular-builder:
-    container_name: angular-builder
+  fantasy_trades_web_app:
+    container_name: fantasy_trades_web_app
     volumes:
-      - build_output:/app/dist
-    working_dir: /app
+      - app:/usr/share/nginx/html
     build:
       context: .
       dockerfile: Dockerfile
-
-
-  nginx:
-    image: nginx:alpine
-    container_name: fantasy_trades_web_app
-    volumes:
-      - build_output:/usr/share/nginx/html
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf
     ports:
       - "80:80"
 
 volumes:
-  build_output:
+  app:
