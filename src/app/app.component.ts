@@ -13,7 +13,8 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { TradeComponent } from './components/trades/trade.component';
+import { TradeComponent } from './components/trade/trade.component';
+import { LeftNavComponent } from './components/left-nav/left-nav.component';
 
 @Component({
   selector: 'app-root',
@@ -28,13 +29,14 @@ import { TradeComponent } from './components/trades/trade.component';
     MatInputModule, 
     MatOptionModule,
     MatNativeDateModule,
-    TradeComponent
+    TradeComponent,
+    LeftNavComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'fantasy_trades_web_app';
+  title = 'Fantasy Trades';
 
   
 }

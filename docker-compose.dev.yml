@@ -1,5 +1,6 @@
 services:
   fantasy_trades_web_app:
+    image: angular
     container_name: fantasy_trades_web_app
     build:
       context: .

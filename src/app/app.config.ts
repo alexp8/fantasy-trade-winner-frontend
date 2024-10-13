@@ -15,7 +15,8 @@ import { CommonModule } from '@angular/common';
 import { importProvidersFrom } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { provideHttpClient } from '@angular/common/http';
-import { TradeComponent } from './components/trades/trade.component'
+import { TradeComponent } from './components/trade/trade.component'
+import { LeftNavComponent } from './components/left-nav/left-nav.component'
 
 export const appConfig: ApplicationConfig = {
   providers: [
