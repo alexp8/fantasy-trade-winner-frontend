@@ -1,25 +1,40 @@
-<div class="trade-search">
-    <h2>Find Trades</h2>
-  
-    <label for="sleeperLeagueId">Sleeper League ID:</label>
-    <input type="text" id="sleeperLeagueId" #leagueIdInput placeholder="Enter Sleeper League ID">
-  
-    <button (click)="fetchTrades(leagueIdInput.value)">Fetch Trades</button>
-  
-    <div *ngIf="error" class="error">{{ error }}</div>
-  
-    <div *ngIf="trades">
-      <h3>({{ trades.total_trades }}) Trade Results (Page {{ trades.page }} of {{ trades.total_pages }})</h3>
-  
-      <div *ngFor="let trade of trades.trades">
+<div class="trade-list-container">
+  <!-- Pagination controls at the top -->
+  <div class="pagination">
+    <button (click)="previousPage()" [disabled]="!trades?.has_previous">Previous</button>
+    <span>Page {{ trades?.page }} of {{ trades?.total_pages }}</span>
+    <button (click)="nextPage()" [disabled]="!trades?.has_next">Next</button>
+  </div>
+
+  <!-- Input field for Sleeper League ID -->
+  <div class="league-id-input">
+    <label for="sleeper-league-id">Sleeper League ID:</label>
+    <input id="sleeper-league-id" type="text" [(ngModel)]="sleeperLeagueId" placeholder="Enter League ID" />
+    <button (click)="fetchTrades()">Fetch Trades</button>
+  </div>
+
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <div *ngIf="trades" class="trade-results-container">
+    <!-- Scrollable trade list -->
+    <div class="scrollable-trade-list">
+      <div *ngFor="let trade of trades.trades" class="trade-item" (click)="selectTrade(trade)">
         <h4>Trade ID: {{ trade.transaction_id }}</h4>
-        <p>Created At: {{ trade.created_at_formatted }}</p>
-        <p>Week: {{ trade.week }}</p>
-        <div *ngFor="let rosterId of trade.roster_ids">
-          <p>Roster ID: {{ rosterId }}</p>
-        </div>
-        <hr>
+        <p>Week: {{ trade.week }} | Created At: {{ trade.created_at_formatted }}</p>
       </div>
     </div>
+
+    <!-- Full details of the selected trade -->
+    <div class="trade-details" *ngIf="selectedTrade">
+      <h3>Trade Details</h3>
+      <p>Transaction ID: {{ selectedTrade.transaction_id }}</p>
+      <p>Created At: {{ selectedTrade.created_at_formatted }}</p>
+      <p>Week: {{ selectedTrade.week }}</p>
+      <p>Rosters involved:</p>
+      <ul>
+        <li *ngFor="let rosterId of selectedTrade.roster_ids">Roster ID: {{ rosterId }}</li>
+      </ul>
+      <!-- Add more details as needed, such as players, picks, etc. -->
+    </div>
   </div>
-  
+</div>

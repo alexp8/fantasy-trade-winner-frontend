@@ -1,5 +1,42 @@
-/* trade.component.css */
+.trade-list-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.league-id-input {
+  margin-bottom: 20px;
+}
+
+.scrollable-trade-list {
+  max-height: 400px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.trade-item {
+  cursor: pointer;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.trade-item:hover {
+  background-color: #f9f9f9;
+}
+
+.trade-details {
+  border: 1px solid #ddd;
+  padding: 20px;
+}
+
 .error {
-    color: red;
-  }
-  
+  color: red;
+}
