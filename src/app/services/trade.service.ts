@@ -13,6 +13,6 @@ export class TradeService {
 
   // e.g. http://127.0.0.1:8000/api/get_league_trades/1071255073365331968?page=5
   getTrades(sleeper_league_id: string, page: number): Observable<TradeResponse> {
-    return this.http.get<TradeResponse>(`${this.apiUrl}/api/get_league_trades${sleeper_league_id}?page=${page}`);
+    return this.http.get<TradeResponse>(`${this.apiUrl}/api/get_league_trades/${sleeper_league_id}?page=${page}`);
   }
 }

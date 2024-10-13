@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-trades',
   standalone: true,
-  imports: [CommonModule, FormsModule],  // Add CommonModule here
+  imports: [CommonModule, FormsModule],
   templateUrl: './trade.component.html',
   styleUrls: ['./trade.component.css']
 })
