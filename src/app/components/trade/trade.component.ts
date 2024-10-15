@@ -12,11 +12,12 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./trade.component.css']
 })
 export class TradeComponent {
-  trades: TradeResponse | null = null;
+  tradeResponse: TradeResponse | null = null;
   error: string | null = null;
   sleeperLeagueId: string = '';
   selectedTrade: Trade | null = null;
   currentPage: number = 1;
+  loading: Boolean = false
 
   constructor(private tradeService: TradeService) {}
 
@@ -24,33 +25,39 @@ export class TradeComponent {
     
   }
 
-  fetchTrades(sleeperLeagueId: string, page: number = 1): void {
-    if (!sleeperLeagueId) {
+  getPlayerImageUrl(sleeperPlayerId: string): string {
+    return `https://sleepercdn.com/content/nfl/players/thumb/${sleeperPlayerId}.jpg`;
+  }
+
+  fetchTrades(page: number = 1): void {
+    if (!this.sleeperLeagueId) {
       this.error = 'Please enter a valid Sleeper League ID';
       return;
     }
-
-    this.tradeService.getTrades(sleeperLeagueId, page).subscribe({
+    this.loading = true
+    this.tradeService.getTrades(this.sleeperLeagueId, page).subscribe({
       next: (response: TradeResponse) => {
-        this.trades = response;
+        this.tradeResponse = response;
         this.error = null;
+        this.loading = false
       },
       error: (err) => {
         this.error = 'Failed to fetch trades. Please try again.';
         console.error(err);
+        this.loading = false
       }
     });
   }
 
   nextPage(): void {
-    if (this.trades && this.trades.has_next) {
-      this.fetchTrades(this.sleeperLeagueId, this.currentPage + 1);
+    if (this.tradeResponse && this.tradeResponse.has_next) {
+      this.fetchTrades(this.currentPage + 1);
     }
   }
 
   previousPage(): void {
-    if (this.trades && this.trades.has_previous) {
-      this.fetchTrades(this.sleeperLeagueId, this.currentPage - 1);
+    if (this.tradeResponse && this.tradeResponse.has_previous) {
+      this.fetchTrades(this.currentPage - 1);
     }
   }
 

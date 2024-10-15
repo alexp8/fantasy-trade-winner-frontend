@@ -1,40 +1,86 @@
-<div class="trade-list-container">
-  <!-- Pagination controls at the top -->
-  <div class="pagination">
-    <button (click)="previousPage()" [disabled]="!trades?.has_previous">Previous</button>
-    <span>Page {{ trades?.page }} of {{ trades?.total_pages }}</span>
-    <button (click)="nextPage()" [disabled]="!trades?.has_next">Next</button>
-  </div>
+<div class="trade-results-container">
 
-  <!-- Input field for Sleeper League ID -->
-  <div class="league-id-input">
-    <label for="sleeper-league-id">Sleeper League ID:</label>
-    <input id="sleeper-league-id" type="text" [(ngModel)]="sleeperLeagueId" placeholder="Enter League ID" />
-    <button (click)="fetchTrades()">Fetch Trades</button>
-  </div>
+  <div class="trade-list-container">
 
-  <div *ngIf="error" class="error">{{ error }}</div>
+    <!-- Input field for Sleeper League ID -->
+    <div class="league-id-input">
+      <label for="sleeper-league-id">Sleeper League ID:</label>
+      <input id="sleeper-league-id" type="text" [(ngModel)]="sleeperLeagueId" placeholder="Enter League ID" />
+      <button (click)="fetchTrades()" [disabled]="loading">Fetch Trades</button>
+    </div>
 
-  <div *ngIf="trades" class="trade-results-container">
+    <div *ngIf="error" class="error">{{ error }}</div>
+
+    <div *ngIf="tradeResponse">
+      <!-- Pagination controls at the top -->
+      <div class="pagination">
+        <button (click)="previousPage()" [disabled]="!tradeResponse?.has_previous">Previous</button>
+        <span>Page {{ tradeResponse?.page }} of {{ tradeResponse?.total_pages }}</span>
+        <button (click)="nextPage()" [disabled]="!tradeResponse?.has_next">Next</button>
+      </div>
+    </div>
+
     <!-- Scrollable trade list -->
     <div class="scrollable-trade-list">
-      <div *ngFor="let trade of trades.trades" class="trade-item" (click)="selectTrade(trade)">
+      <div *ngFor="let trade of tradeResponse?.trades" class="trade-item" (click)="selectTrade(trade)">
         <h4>Trade ID: {{ trade.transaction_id }}</h4>
         <p>Week: {{ trade.week }} | Created At: {{ trade.created_at_formatted }}</p>
       </div>
     </div>
+  </div>
 
-    <!-- Full details of the selected trade -->
-    <div class="trade-details" *ngIf="selectedTrade">
-      <h3>Trade Details</h3>
-      <p>Transaction ID: {{ selectedTrade.transaction_id }}</p>
+  <!-- Full details of the selected trade -->
+  <div class="trade-details" *ngIf="selectedTrade">
+    <!-- <p>Created At: {{ selectedTrade.created_at_formatted }}</p> -->
+    <!-- <p>Week: {{ selectedTrade.week }}</p> -->
+
+    <div *ngIf="selectedTrade">
+      <!-- <p>Transaction ID: {{ selectedTrade.transaction_id }}</p> -->
       <p>Created At: {{ selectedTrade.created_at_formatted }}</p>
-      <p>Week: {{ selectedTrade.week }}</p>
-      <p>Rosters involved:</p>
-      <ul>
-        <li *ngFor="let rosterId of selectedTrade.roster_ids">Roster ID: {{ rosterId }}</li>
-      </ul>
-      <!-- Add more details as needed, such as players, picks, etc. -->
+      <!-- <p>Week: {{ selectedTrade.week }}</p> -->
+
+      <!-- Roster container to display rosters side by side -->
+      <div class="roster-container">
+        <!-- Loop through roster IDs and display TradeRoster details -->
+        <div *ngFor="let rosterId of selectedTrade.roster_ids" class="roster-block">
+          <!-- <h4>Roster ID: {{ rosterId }}</h4> -->
+
+          <!-- Check if the TradeRoster exists for this rosterId -->
+          <div *ngIf="selectedTrade[rosterId] as roster">
+            <h4>{{ roster.user_name }}</h4>
+            <img [src]="roster.avatar_url" alt="{{ roster.user_name }}'s Avatar" style="width: 50px; height: 50px;" />
+            <p>Total Current Value: {{ roster.total_current_value }}</p>
+            <p>Total Value When Traded: {{ roster.total_value_when_traded }}</p>
+
+            <div *ngIf="roster.fab > 0">
+              <p>FAB: {{ roster.fab }}</p>
+            </div>
+
+            <!-- Display players for this roster -->
+            <h5>Players:</h5>
+            <ul>
+              <li *ngFor="let player of roster.players">
+                {{ player.player_name }} - Value When Traded: {{ player.value_when_traded }}, Latest Value: {{
+                player.latest_value }}
+              </li>
+            </ul>
+
+            <!-- Display draft picks for this roster -->
+            <ul *ngIf="roster.draft_picks.length > 0;">
+              <h5>Draft Picks:</h5>
+              <li *ngFor="let pick of roster.draft_picks">
+                Round: {{ pick.round }} | Range: {{ pick.range }} | Season: {{ pick.season }}
+              </li>
+            </ul>
+            <!-- <ng-template #noDraftPicks>
+              <p>No draft picks for this roster.</p>
+            </ng-template> -->
+          </div>
+        </div>
+      </div>
     </div>
+
+
+
   </div>
 </div>

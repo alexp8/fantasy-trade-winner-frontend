@@ -1,7 +1,6 @@
 .trade-list-container {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 20px;
+  width: 250px; /* Make the trade list container narrow */
+  margin-right: 20px; /* Add some space between the list and the details */
 }
 
 .pagination {
@@ -33,10 +32,42 @@
 }
 
 .trade-details {
-  border: 1px solid #ddd;
+  flex-grow: 1;
   padding: 20px;
+  border: 1px solid #ddd;
+  max-width: 70%;
 }
 
 .error {
   color: red;
+}
+
+.trade-results-container {
+  display: flex;
+  align-items: flex-start; /* Aligns the trade details to the top */
+}
+
+/* Container that holds all roster blocks side by side */
+.roster-container {
+  display: flex;
+  justify-content: space-between; /* Space between the roster blocks */
+  gap: 20px; /* Adds space between each roster block */
+}
+
+/* Individual roster block */
+.roster-block {
+  flex: 1; /* Each roster block takes equal width */
+  padding: 20px;
+  border: 1px solid #ddd;
+  max-width: 300px; /* Adjust based on your layout */
+  box-sizing: border-box; /* Ensure padding and width are considered together */
+}
+
+/* Styling for players and picks */
+ul {
+  padding-left: 20px;
+}
+
+h5 {
+  margin-top: 10px;
 }

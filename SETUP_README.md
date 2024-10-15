@@ -9,5 +9,5 @@
     * `docker run -p 80:80 -d fantasy_trades_web_image`
 
 
-Dev
+Development
 * `docker-compose -f docker-compose.dev.yml up --build -d`
