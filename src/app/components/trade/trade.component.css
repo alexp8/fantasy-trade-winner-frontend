@@ -1,6 +1,6 @@
 .trade-list-container {
-  width: 250px; /* Make the trade list container narrow */
-  margin-right: 20px; /* Add some space between the list and the details */
+  width: 250px;
+  margin-right: 20px;
 }
 
 .pagination {
@@ -44,23 +44,23 @@
 
 .trade-results-container {
   display: flex;
-  align-items: flex-start; /* Aligns the trade details to the top */
+  align-items: flex-start;
 }
 
 /* Container that holds all roster blocks side by side */
 .roster-container {
   display: flex;
-  justify-content: space-between; /* Space between the roster blocks */
-  gap: 20px; /* Adds space between each roster block */
+  justify-content: space-between;
+  gap: 20px;
 }
 
 /* Individual roster block */
 .roster-block {
-  flex: 1; /* Each roster block takes equal width */
+  flex: 1;
   padding: 20px;
   border: 1px solid #ddd;
-  max-width: 300px; /* Adjust based on your layout */
-  box-sizing: border-box; /* Ensure padding and width are considered together */
+  max-width: 400px;
+  box-sizing: border-box;
 }
 
 /* Styling for players and picks */
@@ -70,4 +70,30 @@ ul {
 
 h5 {
   margin-top: 10px;
+}
+
+.roster-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.roster-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.roster-username {
+  margin: 0;
+  font-size: 18px;
+}
+
+/* Light transparent green background for winning rosters */
+.roster-won {  background-color: rgba(50, 145, 50, 0.127);
+}
+
+/* Light transparent red background for losing rosters */
+.roster-lost {
+  background-color: rgba(212, 80, 80, 0.132);
 }

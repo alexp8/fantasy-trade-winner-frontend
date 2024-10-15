@@ -30,6 +30,7 @@ export class TradeComponent {
   }
 
   fetchTrades(page: number = 1): void {
+    this.selectedTrade = null;
     if (!this.sleeperLeagueId) {
       this.error = 'Please enter a valid Sleeper League ID';
       return;
@@ -38,6 +39,7 @@ export class TradeComponent {
     this.tradeService.getTrades(this.sleeperLeagueId, page).subscribe({
       next: (response: TradeResponse) => {
         this.tradeResponse = response;
+        this.currentPage = response.page;
         this.error = null;
         this.loading = false
       },

@@ -18,6 +18,7 @@ export interface PreviousLeague {
     value_when_traded: number;
     latest_value: number;
     value_now_as_of: string | null;
+    description: string;
   }
   
   export interface TradeRoster {
@@ -30,6 +31,7 @@ export interface PreviousLeague {
     fab: number;
     players: Player[];
     draft_picks: DraftPick[];
+    won: Boolean;
   }
   
   export interface Trade {
