@@ -1,3 +1,7 @@
+<div *ngIf="tradeResponse">
+  <h3>{{ tradeResponse.league_name }}</h3>
+</div>
+
 <div class="trade-results-container">
 
   <div class="trade-list-container">
@@ -12,6 +16,9 @@
     <div *ngIf="error" class="error">{{ error }}</div>
 
     <div *ngIf="tradeResponse">
+
+      <p>{{ tradeResponse.total_trades }} trades found</p>
+
       <!-- Pagination controls at the top -->
       <div class="pagination">
         <button (click)="previousPage()" [disabled]="!tradeResponse?.has_previous || loading">Previous</button>
@@ -29,6 +36,8 @@
     </div>
   </div>
 
+
+
   <!-- Full details of the selected trade -->
   <div class="trade-details" *ngIf="selectedTrade">
 
@@ -42,14 +51,23 @@
         <div *ngFor="let rosterId of selectedTrade.roster_ids" class="roster-block">
 
           <!-- Check if the TradeRoster exists for this rosterId -->
-          <div *ngIf="selectedTrade[rosterId] as roster"
-          [ngClass]="{'roster-won': roster.won, 'roster-lost': !roster.won}">
+          <div *ngIf="selectedTrade[rosterId] as roster">
             <div class="roster-header">
               <img [src]="roster.avatar_url" alt="{{ roster.user_name }}'s Avatar" class="roster-avatar" />
               <h4 class="roster-username">{{ roster.user_name }}</h4>
             </div>
-            <p>Total Current Value: {{ roster.total_current_value }}</p>
-            <p>Total Value When Traded: {{ roster.total_value_when_traded }}</p>
+
+            <div [ngClass]="{'roster-won': roster.won, 'roster-lost': !roster.won}">
+              <p>Total Current Value: {{ roster.total_current_value }}</p>
+              <img *ngIf="roster.total_current_value > roster.total_value_when_traded; else lowerValue"
+              src="../../../assets/icons/stonks up.png" alt="Value increased" />
+              <p>Total Value When Traded: {{ roster.total_value_when_traded }}</p>
+              
+          
+            <ng-template #lowerValue>
+              <img src="../../../assets/icons/stonks down.jpg" alt="Value decreased or stayed the same" />
+            </ng-template>
+            </div>
 
             <div *ngIf="roster.fab > 0">
               <p>FAB: ${{ roster.fab }}</p>
@@ -90,8 +108,6 @@
         </div>
       </div>
     </div>
-
-
 
   </div>
 </div>
