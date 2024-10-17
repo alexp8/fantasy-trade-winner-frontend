@@ -29,14 +29,19 @@
 
     <!-- Scrollable trade list -->
     <div class="scrollable-trade-list">
-      <div *ngFor="let trade of tradeResponse?.trades" class="trade-item" (click)="selectTrade(trade)">
-        <p>{{ trade.created_at_formatted }}</p>
-        <p>{{ trade[trade.roster_ids[0]].user_name }} | {{ trade[trade.roster_ids[1]].user_name }}</p>
+      <div *ngIf="loading" class="trade-item">
+        <div *ngFor="let i of [].constructor(20)">
+          <img src="{{ where_them_trades_at_url }}" alt="Loading..." class="loading-img" />
+        </div>
+      </div>
+      <div *ngIf="!loading">
+        <div *ngFor="let trade of tradeResponse?.trades" class="trade-item" (click)="selectTrade(trade)">
+          <p>{{ trade.created_at_formatted }}</p>
+          <p>{{ trade[trade.roster_ids[0]].user_name }} | {{ trade[trade.roster_ids[1]].user_name }}</p>
+        </div>
       </div>
     </div>
   </div>
-
-
 
   <!-- Full details of the selected trade -->
   <div class="trade-details" *ngIf="selectedTrade">
@@ -60,13 +65,13 @@
             <div [ngClass]="{'roster-won': roster.won, 'roster-lost': !roster.won}">
               <p>Total Current Value: {{ roster.total_current_value }}</p>
               <img *ngIf="roster.total_current_value > roster.total_value_when_traded; else lowerValue"
-              src="../../../assets/icons/stonks up.png" alt="Value increased" />
+                src="assets/icons/stonks_up.png" alt="Value increased" style=" width: 50px; height: 50px;" />
               <p>Total Value When Traded: {{ roster.total_value_when_traded }}</p>
-              
-          
-            <ng-template #lowerValue>
-              <img src="../../../assets/icons/stonks down.jpg" alt="Value decreased or stayed the same" />
-            </ng-template>
+
+              <ng-template #lowerValue>
+                <img src="assets/icons/stonks_down.jpg" alt="Value decreased or stayed the same"
+                  style=" width: 50px; height: 50px;" />
+              </ng-template>
             </div>
 
             <div *ngIf="roster.fab > 0">

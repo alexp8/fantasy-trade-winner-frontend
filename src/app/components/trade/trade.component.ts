@@ -18,6 +18,7 @@ export class TradeComponent {
   selectedTrade: Trade | null = null;
   currentPage: number = 1;
   loading: Boolean = false
+  where_them_trades_at_url = "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExNnRwcXdpa2w1emdkZmNxY2pmam10eDdnZXY2ZWpxZmV2a3RtNzc3NiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/OStrMR6ykemf0Bkk1x/giphy.webp"
 
   constructor(private tradeService: TradeService) {}
 
@@ -31,6 +32,8 @@ export class TradeComponent {
 
   fetchTrades(page: number = 1): void {
     this.selectedTrade = null;
+    this.selectedTrade = null;
+
     if (!this.sleeperLeagueId) {
       this.error = 'Please enter a valid Sleeper League ID';
       return;
