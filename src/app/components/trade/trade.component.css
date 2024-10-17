@@ -114,3 +114,15 @@ h5 {
   width: 100%;
   height: auto;
 }
+
+.value-container {
+  display: flex;
+  align-items: center;  /* Align text and image vertically */
+}
+
+.value-change-icon {
+  margin-left: 2px;
+  margin-bottom: 3px;
+  width: 25px;
+  height: 25px;
+}

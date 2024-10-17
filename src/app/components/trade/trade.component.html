@@ -63,16 +63,20 @@
             </div>
 
             <div [ngClass]="{'roster-won': roster.won, 'roster-lost': !roster.won}">
-              <p>Total Current Value: {{ roster.total_current_value }}</p>
-              <img *ngIf="roster.total_current_value > roster.total_value_when_traded; else lowerValue"
-                src="assets/icons/stonks_up.png" alt="Value increased" style=" width: 50px; height: 50px;" />
-              <p>Total Value When Traded: {{ roster.total_value_when_traded }}</p>
 
-              <ng-template #lowerValue>
-                <img src="assets/icons/stonks_down.jpg" alt="Value decreased or stayed the same"
-                  style=" width: 50px; height: 50px;" />
-              </ng-template>
+              <div class="value-container">
+                <p>Total Current Value: {{ roster.total_current_value }}</p>
+
+                <img *ngIf="roster.total_current_value > roster.total_value_when_traded"
+                  src="assets/icons/stonks_up.png" alt="Value increased" class="value-change-icon" />
+
+                <img *ngIf="roster.total_current_value < roster.total_value_when_traded"
+                  src="assets/icons/stonks_down.jpg" alt="Value decreased" class="value-change-icon" />
+              </div>
+
+              <p>Total Value When Traded: {{ roster.total_value_when_traded }}</p>
             </div>
+
 
             <div *ngIf="roster.fab > 0">
               <p>FAB: ${{ roster.fab }}</p>

@@ -33,6 +33,7 @@ export class TradeComponent {
   fetchTrades(page: number = 1): void {
     this.selectedTrade = null;
     this.selectedTrade = null;
+    this.currentPage = page;
 
     if (!this.sleeperLeagueId) {
       this.error = 'Please enter a valid Sleeper League ID';
