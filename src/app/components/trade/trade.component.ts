@@ -43,6 +43,7 @@ export class TradeComponent {
     this.selectedTrade = null;
     this.selectedTrade = null;
     this.currentPage = page;
+    this.error = null;
 
     if (!this.sleeperLeagueId) {
       this.error = 'Please enter a valid Sleeper League ID';
@@ -53,13 +54,15 @@ export class TradeComponent {
       next: (response: TradeResponse) => {
         this.tradeResponse = response;
         this.currentPage = response.page;
-        this.error = null;
         this.loading = false
       },
       error: (err) => {
-        this.error = 'Failed to fetch trades. Please try again.';
-        console.error(err);
         this.loading = false
+        if (err.status === 404) {
+          this.error = 'Sleeper League ID does not exist.';
+        } else {
+          this.error = 'Failed to fetch trades. Please try again.';
+        }
       }
     });
   }
@@ -106,7 +109,7 @@ export class TradeComponent {
 
     if (user == this.selectedUser)
       return;
-    
+
     this.selectedUser = user;
     this.dropdownOpen = false;
 
