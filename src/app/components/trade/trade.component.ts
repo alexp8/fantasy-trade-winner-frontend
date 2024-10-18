@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { TradeService } from '../../services/trade.service';
-import { TradeResponse, Trade } from '../../models/trade.model';
+import { TradeResponse, Trade, LeagueUser } from '../../models/trade.model';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -22,11 +22,13 @@ export class TradeComponent {
   selectedRoster: string = 'all';
   leagueThumb: String = "https://sleepercdn.com/avatars/thumbs"
   playerThumb: String = "https://sleepercdn.com/content/nfl/players/thumb"
+  dropdownOpen = false;
+  selectedUser: LeagueUser | null = null;
 
-  constructor(private tradeService: TradeService) {}
+  constructor(private tradeService: TradeService) { }
 
   ngOnInit(): void {
-    
+
   }
 
   getPlayerImageUrl(sleeperPlayerId: string): string {
@@ -94,5 +96,24 @@ export class TradeComponent {
     const selectedValue = event.target.value;
     console.log(`updateTrades ${selectedValue}`)
     this.fetchTrades(1, selectedValue);
+  }
+
+  toggleDropdown(): void {
+    this.dropdownOpen = !this.dropdownOpen;
+  }
+
+  selectUser(user: LeagueUser | null): void {
+
+    if (user == this.selectedUser)
+      return;
+    
+    this.selectedUser = user;
+    this.dropdownOpen = false;
+
+    if (this.selectedUser != null) {
+      this.fetchTrades(1, `${this.selectedUser.roster_id}`);
+    } else {
+      this.fetchTrades(1);
+    }
   }
 }

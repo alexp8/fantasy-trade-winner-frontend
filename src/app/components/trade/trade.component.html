@@ -32,17 +32,24 @@
 
       <p>{{ tradeResponse.total_trades }} trades found</p>
 
-      <select [(ngModel)]="selectedRoster" class="roster-dropdown" (change)="updateTrades($event)">
+      <div class="custom-dropdown">
+        <div class="selected-option" (click)="toggleDropdown()">
+          {{ selectedUser?.user_name || 'Select a user' }}
+        </div>
+      
+        <ul *ngIf="dropdownOpen" class="options-list">
 
-        <option value="all">All</option>
-
-        <!-- Loop through league_users to create dropdown options -->
-        <option *ngFor="let user of tradeResponse.league_users" [value]="user.roster_id">
-
-          <img [src]="user.avatar_url" alt="{{ user.user_name }}'s Avatar" class="avatar-dropdown" />
-          {{ user.user_name }}
-        </option>
-      </select>
+          <li (click)="selectUser(null)">
+            <span>All</span>
+          </li>
+      
+          <li *ngFor="let user of tradeResponse.league_users" (click)="selectUser(user)">
+            <img [src]="user.avatar_url" alt="{{ user.user_name }}'s Avatar" class="avatar-dropdown" />
+            <span>{{ user.user_name }}</span>
+          </li>
+        </ul>
+      </div>
+      
 
       <!-- Pagination controls at the top -->
       <div class="pagination">
