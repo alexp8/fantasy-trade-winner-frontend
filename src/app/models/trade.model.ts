@@ -43,7 +43,15 @@ export interface Trade {
   week: number;
 }
 
+export interface LeagueUser {
+  user_id: String;
+  user_name: String;
+  avatar_url: String;
+  roster_id: number;
+}
+
 export interface TradeResponse {
+  league_avatar: String;
   league_name: String;
   league_season: String;
   page: number;
@@ -51,6 +59,7 @@ export interface TradeResponse {
   total_trades: number;
   has_next: boolean;
   has_previous: boolean;
-  previous_league_ids: PreviousLeague[];
+  previous_leagues: PreviousLeague[];
+  league_users: LeagueUser[];
   trades: Trade[];
 }

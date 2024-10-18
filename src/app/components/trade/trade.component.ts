@@ -19,6 +19,9 @@ export class TradeComponent {
   currentPage: number = 1;
   loading: Boolean = false
   where_them_trades_at_url = "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExNnRwcXdpa2w1emdkZmNxY2pmam10eDdnZXY2ZWpxZmV2a3RtNzc3NiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/OStrMR6ykemf0Bkk1x/giphy.webp"
+  selectedRoster: string = 'all';
+  leagueThumb: String = "https://sleepercdn.com/avatars/thumbs"
+  playerThumb: String = "https://sleepercdn.com/content/nfl/players/thumb"
 
   constructor(private tradeService: TradeService) {}
 
@@ -27,10 +30,14 @@ export class TradeComponent {
   }
 
   getPlayerImageUrl(sleeperPlayerId: string): string {
-    return `https://sleepercdn.com/content/nfl/players/thumb/${sleeperPlayerId}.jpg`;
+    return `${this.playerThumb}/${sleeperPlayerId}.jpg`;
   }
 
-  fetchTrades(page: number = 1): void {
+  getLeagueAvatar(): string {
+    return `${this.leagueThumb}/${this.tradeResponse?.league_avatar}`;
+  }
+
+  fetchTrades(page: number = 1, rosterId: string = "all"): void {
     this.selectedTrade = null;
     this.selectedTrade = null;
     this.currentPage = page;
@@ -40,7 +47,7 @@ export class TradeComponent {
       return;
     }
     this.loading = true
-    this.tradeService.getTrades(this.sleeperLeagueId, page).subscribe({
+    this.tradeService.getTrades(this.sleeperLeagueId, page, rosterId).subscribe({
       next: (response: TradeResponse) => {
         this.tradeResponse = response;
         this.currentPage = response.page;
@@ -67,7 +74,25 @@ export class TradeComponent {
     }
   }
 
+  firstPage(): void {
+    if (this.tradeResponse) {
+      this.fetchTrades(1);
+    }
+  }
+
+  lastPage(): void {
+    if (this.tradeResponse) {
+      this.fetchTrades(this.tradeResponse.total_pages);
+    }
+  }
+
   selectTrade(trade: Trade): void {
     this.selectedTrade = trade;
+  }
+
+  updateTrades(event: any): void {
+    const selectedValue = event.target.value;
+    console.log(`updateTrades ${selectedValue}`)
+    this.fetchTrades(1, selectedValue);
   }
 }

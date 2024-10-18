@@ -85,6 +85,12 @@ h5 {
   border-radius: 50%;
 }
 
+.league-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
 .roster-username {
   margin: 0;
   font-size: 18px;
@@ -110,6 +116,10 @@ h5 {
   height: 100%;
 }
 
+.trade-header {
+  display: flex;
+}
+
 .loading-img {
   width: 100%;
   height: auto;
@@ -117,7 +127,7 @@ h5 {
 
 .value-container {
   display: flex;
-  align-items: center;  /* Align text and image vertically */
+  align-items: center;
 }
 
 .value-change-icon {
@@ -125,4 +135,22 @@ h5 {
   margin-bottom: 3px;
   width: 25px;
   height: 25px;
+}
+
+.avatar-dropdown {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+.roster-dropdown {
+  width: 100%;
+  padding: 5px;
+  font-size: 16px;
+}
+
+.previous-leagues  {
+  border-bottom: 1px solid #eee;
 }

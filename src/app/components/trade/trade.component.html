@@ -1,5 +1,18 @@
 <div *ngIf="tradeResponse">
-  <h3>{{ tradeResponse.league_name }}</h3>
+  <div class="trade-header">
+    <img [src]="getLeagueAvatar()" alt="League Avatar" class="league-avatar" />
+    <h3>{{ tradeResponse.league_name }}</h3>
+  </div>
+  <h6>Season {{tradeResponse.previous_leagues.length + 1 }} </h6>
+
+  <!-- <div class="previous-leagues">
+    <h5>Previous Leagues</h5>
+    <div *ngFor="let previous_leaugue of tradeResponse.previous_leagues">
+      <ul>
+        <li>Season: {{ previous_leaugue.season }} | League ID: {{ previous_leaugue.previous_league_id }}</li>
+      </ul>
+    </div>
+  </div> -->
 </div>
 
 <div class="trade-results-container">
@@ -19,11 +32,26 @@
 
       <p>{{ tradeResponse.total_trades }} trades found</p>
 
+      <select [(ngModel)]="selectedRoster" class="roster-dropdown" (change)="updateTrades($event)">
+
+        <option value="all">All</option>
+
+        <!-- Loop through league_users to create dropdown options -->
+        <option *ngFor="let user of tradeResponse.league_users" [value]="user.roster_id">
+
+          <img [src]="user.avatar_url" alt="{{ user.user_name }}'s Avatar" class="avatar-dropdown" />
+          {{ user.user_name }}
+        </option>
+      </select>
+
       <!-- Pagination controls at the top -->
       <div class="pagination">
+        <button (click)="firstPage()" [disabled]="tradeResponse?.page == 1 || loading">First</button>
         <button (click)="previousPage()" [disabled]="!tradeResponse?.has_previous || loading">Previous</button>
         <span>Page {{ tradeResponse?.page }} of {{ tradeResponse?.total_pages }}</span>
         <button (click)="nextPage()" [disabled]="!tradeResponse?.has_next || loading">Next</button>
+        <button (click)="lastPage()"
+          [disabled]="tradeResponse?.page == tradeResponse?.total_pages || loading">Last</button>
       </div>
     </div>
 
@@ -83,20 +111,22 @@
             </div>
 
             <!-- Display players for this roster -->
-            <h5>Players:</h5>
-            <ul>
-              <li *ngFor="let player of roster.players">
+            <div *ngIf="roster.players.length > 0">
+              <h5>Players:</h5>
+              <ul>
+                <li *ngFor="let player of roster.players">
 
-                <img [src]="getPlayerImageUrl(player.player_id)" alt="{{ player.player_name }}'s Avatar"
-                  style="width: 25px; height: 16px;" />
+                  <img [src]="getPlayerImageUrl(player.player_id)" alt="{{ player.player_name }}'s Avatar"
+                    style="width: 25px; height: 16px;" />
 
-                {{ player.player_name }}
-                <ul>
-                  <li>Value When Traded: {{ player.value_when_traded }}</li>
-                  <li>Value Latest Value: {{ player.latest_value }}</li>
-                </ul>
-              </li>
-            </ul>
+                  {{ player.player_name }}
+                  <ul>
+                    <li>Value When Traded: {{ player.value_when_traded == 0 ? '?' : player.value_when_traded }}</li>
+                    <li>Value Latest Value: {{ player.latest_value }}</li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
 
             <!-- Display draft picks for this roster -->
             <div *ngIf="roster.draft_picks.length > 0;">
