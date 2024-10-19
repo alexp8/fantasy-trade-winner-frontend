@@ -12,7 +12,7 @@ export class LineChartComponent implements OnInit {
 
   @Input() trade!: Trade;
   private chart: Chart | undefined;
-  
+
   constructor() {
     Chart.register(CategoryScale, LinearScale, LineElement, PointElement, Title, Tooltip, Legend, LineController);
 
@@ -82,7 +82,7 @@ export class LineChartComponent implements OnInit {
 
     // Loop through the roster IDs in the trade
     trade.roster_ids.forEach(rosterId => {
-      const roster = trade[rosterId];  // Get the TradeRoster for the current rosterId
+      const roster = trade[rosterId];
 
       // For each player in the TradeRoster
       roster.players.forEach(player => {

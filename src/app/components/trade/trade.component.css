@@ -28,8 +28,16 @@
   border-bottom: 1px solid #eee;
 }
 
+.trade-item.selected {
+  background-color: rgba(202, 221, 221, 0.889);
+}
+
+.trade-item.selected:hover {
+  background-color: rgba(202, 221, 221, 0.889);
+}
+
 .trade-item:hover {
-  background-color: #f9f9f9;
+  background-color: #dbe7e8;
 }
 
 .trade-details {
@@ -41,6 +49,13 @@
 
 .error {
   color: red;
+}
+
+.player-avatar {
+  /* width: 25px;  */
+  /* height: 20px; */
+  width: 15%;
+  aspect-ratio: 25 / 16;
 }
 
 .trade-results-container {

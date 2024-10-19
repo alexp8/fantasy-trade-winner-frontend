@@ -36,20 +36,20 @@
         <div class="selected-option" (click)="toggleDropdown()">
           {{ selectedUser?.user_name || 'Select a user' }}
         </div>
-      
+
         <ul *ngIf="dropdownOpen" class="options-list">
 
           <li (click)="selectUser(null)">
             <span>All</span>
           </li>
-      
+
           <li *ngFor="let user of tradeResponse.league_users" (click)="selectUser(user)">
             <img [src]="user.avatar_url" alt="{{ user.user_name }}'s Avatar" class="avatar-dropdown" />
             <span>{{ user.user_name }}</span>
           </li>
         </ul>
       </div>
-      
+
 
       <!-- Pagination controls at the top -->
       <div class="pagination">
@@ -70,7 +70,8 @@
         </div>
       </div>
       <div *ngIf="!loading">
-        <div *ngFor="let trade of tradeResponse?.trades" class="trade-item" (click)="selectTrade(trade)">
+        <div *ngFor="let trade of tradeResponse?.trades" class="trade-item"
+          [ngClass]="{'selected': trade === selectedTrade}" (click)="selectTrade(trade)">
           <p>{{ trade.created_at_pretty }}</p>
           <p>{{ trade[trade.roster_ids[0]].user_name }} | {{ trade[trade.roster_ids[1]].user_name }}</p>
         </div>
@@ -124,12 +125,18 @@
                 <li *ngFor="let player of roster.players">
 
                   <img [src]="getPlayerImageUrl(player.player_id)" alt="{{ player.player_name }}'s Avatar"
-                    style="width: 25px; height: 16px;" />
+                    class="player-avatar" />
 
                   {{ player.player_name }}
                   <ul>
                     <li>Value When Traded: {{ player.value_when_traded == 0 ? '?' : player.value_when_traded }}</li>
-                    <li>Value Latest Value: {{ player.latest_value }}</li>
+                    <li>Latest Value:
+                      {{
+                      player.value_now_as_of === ''
+                      ? '?'
+                      : ' (' + player.value_now_as_of + '): ' + (player.latest_value === 0 ? '?' : player.latest_value)
+                      }}
+                    </li>
                   </ul>
                 </li>
               </ul>
