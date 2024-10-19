@@ -17,6 +17,7 @@ import { HttpClient } from '@angular/common/http';
 import { provideHttpClient } from '@angular/common/http';
 import { TradeComponent } from './components/trade/trade.component'
 import { LeftNavComponent } from './components/left-nav/left-nav.component'
+import { LineChartComponent } from './components/chart/line-chart.component';
 
 export const appConfig: ApplicationConfig = {
   providers: [

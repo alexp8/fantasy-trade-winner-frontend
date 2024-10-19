@@ -71,7 +71,7 @@
       </div>
       <div *ngIf="!loading">
         <div *ngFor="let trade of tradeResponse?.trades" class="trade-item" (click)="selectTrade(trade)">
-          <p>{{ trade.created_at_formatted }}</p>
+          <p>{{ trade.created_at_pretty }}</p>
           <p>{{ trade[trade.roster_ids[0]].user_name }} | {{ trade[trade.roster_ids[1]].user_name }}</p>
         </div>
       </div>
@@ -82,7 +82,7 @@
   <div class="trade-details" *ngIf="selectedTrade">
 
     <div *ngIf="selectedTrade">
-      <p>{{ selectedTrade.created_at_formatted }}</p>
+      <p>{{ selectedTrade.created_at_pretty }}</p>
 
       <!-- Roster container to display rosters side by side -->
       <div class="roster-container">
@@ -147,12 +147,17 @@
                 </li>
               </ul>
             </div>
-            <!-- <ng-template #noDraftPicks>
-              <p>No draft picks for this roster.</p>
-            </ng-template> -->
+
           </div>
+
         </div>
+
       </div>
+
+      <div>
+        <app-line-chart [trade]="selectedTrade"></app-line-chart>
+      </div>
+
     </div>
 
   </div>

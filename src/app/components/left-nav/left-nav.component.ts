@@ -12,6 +12,7 @@ import { RouterModule } from '@angular/router';
 export class LeftNavComponent {
   menuItems = [
     { name: 'Trades', link: '/' },
+    { name: 'My Leagues', link: '/my-leagues' },
     { name: 'About', link: '/about' },
     { name: 'Contact', link: '/contact' }
   ];

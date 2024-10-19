@@ -3,11 +3,12 @@ import { TradeService } from '../../services/trade.service';
 import { TradeResponse, Trade, LeagueUser } from '../../models/trade.model';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { LineChartComponent } from '../chart/line-chart.component';
 
 @Component({
   selector: 'app-trades',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, LineChartComponent],
   templateUrl: './trade.component.html',
   styleUrls: ['./trade.component.css']
 })

@@ -9,6 +9,12 @@ export interface Player {
   value_when_traded: number;
   latest_value: number;
   value_now_as_of: string | null;
+  ktc_values: KtcValue[]
+}
+
+export interface KtcValue {
+  ktc_value: number;
+  date: string;
 }
 
 export interface DraftPick {
@@ -31,13 +37,14 @@ export interface TradeRoster {
   fab: number;
   players: Player[];
   draft_picks: DraftPick[];
-  won: Boolean;
+  won: boolean;
 }
 
 export interface Trade {
   [rosterId: number]: TradeRoster;
   created_at_millis: number;
-  created_at_formatted: string;
+  created_at_pretty: string;
+  created_at_yyyy_mm_dd: string;
   transaction_id: string;
   roster_ids: number[];
   week: number;
