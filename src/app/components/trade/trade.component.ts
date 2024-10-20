@@ -4,7 +4,7 @@ import { TradeResponse, Trade, LeagueUser } from '../../models/trade.model';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LineChartComponent } from '../chart/line-chart.component';
-import { TradeRoster } from '../../models/trade.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-trades',
@@ -27,7 +27,7 @@ export class TradeComponent {
   dropdownOpen = false;
   selectedUser: LeagueUser | null = null;
 
-  constructor(private tradeService: TradeService) { }
+  constructor(private tradeService: TradeService, private router: Router) { }
 
   ngOnInit(): void {
 
@@ -37,12 +37,23 @@ export class TradeComponent {
     return `${this.playerThumb}/${sleeperPlayerId}.jpg`;
   }
 
+  handleIconClick(event: MouseEvent): void {
+    // If you want to log or perform other actions, do it here
+    console.log("Icon clicked");
+    // Prevent default action if necessary, otherwise let routing happen naturally
+    this.router.navigate(['/my-leagues']);
+  }
+
   getLeagueAvatar(): string {
     return `${this.leagueThumb}/${this.tradeResponse?.league_avatar}`;
   }
 
   getUserAvatar(userAvatar: string): string {
     return `${this.leagueThumb}/${userAvatar}`;
+  }
+
+  navigateToMyLeagues() {
+    this.router.navigate(['/my-leagues']);
   }
 
   getRosterAvatar(rosterId: number): string {

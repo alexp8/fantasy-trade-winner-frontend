@@ -102,3 +102,38 @@ body {
   color: #999;
   font-style: italic;
 }
+
+.info-icon {
+  position: relative; /* Required for the tooltip positioning */
+  margin-left: 8px; /* Space between label and icon */
+  text-decoration: none; /* Remove underline from link */
+  color: inherit; /* Inherit color from the label */
+  display: inline-flex; /* Make the link a flex container */
+  align-items: center; /* Center align the icon */
+  padding: 4px; /* Add padding for better clickability */
+}
+
+.info-icon:hover {
+  color: #007bff; /* Change color on hover */
+  cursor: pointer; /* Change cursor to pointer */
+}
+
+.info-icon::after {
+  content: attr(title); /* Tooltip text from the title attribute */
+  position: absolute;
+  left: 50%;
+  bottom: 100%; /* Position above the icon */
+  transform: translateX(-50%);
+  background-color: #333;
+  color: #fff;
+  padding: 5px;
+  border-radius: 4px;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none; /* Prevent mouse events on the tooltip */
+}
+
+.info-icon:hover::after {
+  opacity: 1; /* Show tooltip on hover */
+}
