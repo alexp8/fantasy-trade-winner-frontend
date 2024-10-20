@@ -17,6 +17,7 @@ export class MyLeaguesComponent {
   error: string | null = null
   userName: string | null = null
   leagueThumb: String = "https://sleepercdn.com/avatars/thumbs"
+  loadingGif: String = "https://i.pinimg.com/originals/4d/0a/29/4d0a2935029461cd1135eeb9f0de58a4.gif"
 
   constructor(private leagueService: LeagueService) { }
 

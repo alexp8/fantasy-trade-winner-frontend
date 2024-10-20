@@ -9,10 +9,6 @@
   margin-bottom: 10px;
 }
 
-.league-id-input {
-  margin-bottom: 20px;
-}
-
 .scrollable-trade-list {
   max-height: 400px;
   overflow-y: auto;
@@ -45,10 +41,6 @@
   padding: 20px;
   border: 1px solid #ddd;
   max-width: 70%;
-}
-
-.error {
-  color: red;
 }
 
 .player-avatar {
@@ -121,10 +113,6 @@ h5 {
   border: 2px solid rgba(212, 80, 80, 0.132);
   box-shadow: 0 0 10px rgba(222, 79, 79, 0.7);
   background-color: transparent;
-}
-
-.trade-background {
-  background-color: rgba(175, 161, 215, 0.132);
 }
 
 .loading-container {
@@ -219,12 +207,4 @@ h5 {
   justify-content: center;
   align-items: center;
   height: 100vh;
-}
-
-.league-id-input {
-  text-align: center;
-  background-color: #f9f9f9;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }

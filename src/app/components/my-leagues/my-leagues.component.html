@@ -1,14 +1,25 @@
-<div *ngIf="!leagueResponses && !loading" class="centered-input">
-    <div class="user-id-input">
-        <label for="sleeper-user-name">Sleeper username</label>
-        <input id="sleeper-user-name" type="text" [(ngModel)]="userName" placeholder="Enter Sleeper username" />
-        <button (click)="fetchUserLeagues()" [disabled]="loading">Fetch Leagues</button>
+
+
+<div *ngIf="!leagueResponses && !loading" class="centered-input" >
+    <div *ngIf="error" class="error">
+        <p>{{ error }}</p>
     </div>
+
+    <div class="input-container">
+        <label for="sleeper-user-name" class="sleeper-label">Sleeper username</label>
+        <input id="sleeper-user-name" type="text" class="input" [(ngModel)]="userName"
+            placeholder="Enter Sleeper username" />
+        <button (click)="fetchUserLeagues()" [disabled]="loading" class="button">Fetch Leagues</button>
+    </div>
+
+</div>
+
+<div *ngIf="loading">
+    <img src="{{ loadingGif }}" alt="Loaodingr" />
 </div>
 
 <div *ngIf="leagueResponses" class="league-results-container">
     <div class="league-panel-container">
-
         <div class="league-panel" *ngFor="let league of leagueResponses">
             <div class="league-header">
                 <img [src]="getLeagueAvatar(league.avatar)" alt="{{ league.name }}'s Avatar" class="league-avatar" />
@@ -20,5 +31,4 @@
             </div>
         </div>
     </div>
-
 </div>

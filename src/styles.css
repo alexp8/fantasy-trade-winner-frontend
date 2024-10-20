@@ -1,14 +1,104 @@
+html,
+body {
+  height: 100%;
+}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
 .app-container {
-    display: flex;
-  }
-  
-  .main-content {
-    margin-left: 200px;
-    padding: 20px;
-    width: calc(100% - 200px);
-  }
-  
+  display: flex;
+}
+
+.main-content {
+  margin-left: 200px;
+  padding: 20px;
+  width: calc(100% - 200px);
+}
+
+.background {
+  background-color: rgba(19, 23, 20, 0.852);
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.error {
+  color: red;
+}
+
+.button {
+  background-color: #007bff; /* Primary color */
+  color: white;              /* Text color */
+  border: none;              /* Remove default border */
+  border-radius: 10px;      /* Rounded corners */
+  padding: 15px 20px;       /* Top/Bottom and Left/Right padding */
+  font-size: 18px;          /* Increase font size */
+  cursor: pointer;           /* Pointer on hover */
+  transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transitions */
+  width: 100%;               /* Full width of container */
+  max-width: 300px;         /* Maximum width */
+}
+
+/* Button hover effect */
+.-button:hover {
+  background-color: #0056b3; /* Darker shade on hover */
+  box-shadow: 0 4px 15px rgba(0, 123, 255, 0.5); /* Add shadow */
+}
+
+/* Label styling */
+.sleeper-label {
+  color: rgb(0, 0, 0);
+  margin-bottom: 5px; /* Space between label and input */
+  margin-right: 10px;         /* Space between label and input */
+  width: 150px;               /* Fixed width for the label */
+}
+
+/* Disabled button styling */
+.button:disabled {
+  background-color: #ccc; /* Grey out disabled button */
+  cursor: not-allowed;     /* Change cursor to indicate disabled state */
+  box-shadow: none;        /* Remove shadow */
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;  /* Stack label, input, and button vertically */
+  align-items: center; /* Center align items */
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+/* Input styles */
+.input {
+  text-align: center;
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  font-size: 18px;
+  width: 300px;
+  height: 15px;
+  border: 2px solid #ccc;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  margin-bottom: 20px; /* Space between input and button */
+}
+
+/* Focus state for input */
+.input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 15px rgba(0, 123, 255, 0.4);
+  outline: none;
+}
+
+/* Placeholder styling */
+.input::placeholder {
+  color: #999;
+  font-style: italic;
+}

@@ -1,8 +1,8 @@
 <div *ngIf="(!tradeResponse && !loading)" class="centered-input">
-  <div class="league-id-input">
-    <label for="sleeper-league-id">Sleeper League ID:</label>
-    <input id="sleeper-league-id" type="text" [(ngModel)]="sleeperLeagueId" placeholder="Enter League ID" />
-    <button (click)="fetchTrades()" [disabled]="loading">Fetch Trades</button>
+  <div class="input-container">
+    <label for="sleeper-league-id" class="sleeper-label">Sleeper League ID</label>
+    <input id="sleeper-league-id"  class="input" type="text" [(ngModel)]="sleeperLeagueId" placeholder="12345678234" />
+    <button (click)="fetchTrades()" [disabled]="loading" class="button">Fetch Trades</button>
   </div>
 </div>
 
@@ -11,7 +11,8 @@
     <img [src]="getLeagueAvatar()" alt="League Avatar" class="league-avatar" />
     <h3>{{ tradeResponse.league_name }}</h3>
   </div>
-  <h6>Season {{ tradeResponse && tradeResponse.previous_leagues ? tradeResponse.previous_leagues.length + 1 : 1 }}</h6>
+  <h6>Season {{ tradeResponse && tradeResponse.previous_leagues ? tradeResponse.previous_leagues.length + 1 : 1 }}
+  </h6>
 </div>
 
 <div *ngIf="tradeResponse || loading" class="trade-results-container">
@@ -21,7 +22,7 @@
     <!-- Input field for Sleeper League ID -->
     <div class="league-id-input">
       <label for="sleeper-league-id">Sleeper League ID:</label>
-      <input id="sleeper-league-id" type="text" [(ngModel)]="sleeperLeagueId" placeholder="Enter League ID" />
+      <input id="sleeper-league-id" type="text" [(ngModel)]="sleeperLeagueId" placeholder="12345678234" />
       <button (click)="fetchTrades()" [disabled]="loading">Fetch Trades</button>
     </div>
 
@@ -88,13 +89,15 @@
       <div class="roster-container">
 
         <!-- Loop through roster IDs and display TradeRoster details -->
-        <div *ngFor="let rosterId of selectedTrade.roster_ids" class="roster-block"  [ngClass]="{'roster-won': selectedTrade[rosterId].won, 'roster-lost': !selectedTrade[rosterId].won}">
+        <div *ngFor="let rosterId of selectedTrade.roster_ids" class="roster-block"
+          [ngClass]="{'roster-won': selectedTrade[rosterId].won, 'roster-lost': !selectedTrade[rosterId].won}">
 
           <!-- Check if the TradeRoster exists for this rosterId -->
           <div *ngIf="selectedTrade[rosterId] as roster">
             <div class="roster-header">
-             
-              <img [src]="getRosterAvatar(roster.roster_id)" alt="{{ roster.user_name }}'s Avatar" class="roster-avatar" />
+
+              <img [src]="getRosterAvatar(roster.roster_id)" alt="{{ roster.user_name }}'s Avatar"
+                class="roster-avatar" />
               <h3 class="roster-username">{{ roster.user_name }}</h3>
             </div>
 
@@ -134,7 +137,8 @@
                       {{
                       player.value_now_as_of === ''
                       ? '?'
-                      : ' (' + player.value_now_as_of + '): ' + (player.latest_value === 0 ? '?' : player.latest_value)
+                      : ' (' + player.value_now_as_of + '): ' + (player.latest_value === 0 ? '?' :
+                      player.latest_value)
                       }}
                     </li>
                   </ul>
