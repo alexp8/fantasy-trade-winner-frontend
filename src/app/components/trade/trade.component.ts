@@ -37,10 +37,7 @@ export class TradeComponent {
     return `${this.playerThumb}/${sleeperPlayerId}.jpg`;
   }
 
-  handleIconClick(event: MouseEvent): void {
-    // If you want to log or perform other actions, do it here
-    console.log("Icon clicked");
-    // Prevent default action if necessary, otherwise let routing happen naturally
+  goToMyLeague(event: MouseEvent): void {
     this.router.navigate(['/my-leagues']);
   }
 
