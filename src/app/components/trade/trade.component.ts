@@ -4,6 +4,7 @@ import { TradeResponse, Trade, LeagueUser } from '../../models/trade.model';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LineChartComponent } from '../chart/line-chart.component';
+import { TradeRoster } from '../../models/trade.model';
 
 @Component({
   selector: 'app-trades',
@@ -40,8 +41,27 @@ export class TradeComponent {
     return `${this.leagueThumb}/${this.tradeResponse?.league_avatar}`;
   }
 
+  getUserAvatar(userAvatar: string): string {
+    return `${this.leagueThumb}/${userAvatar}`;
+  }
+
+  getRosterAvatar(rosterId: number): string {
+    
+    let leagueUser: LeagueUser | undefined = this.tradeResponse?.league_users.find(user => user.roster_id === rosterId);
+  
+    let avatar;
+    if (leagueUser) {
+      avatar = leagueUser.roster_avatar || this.getUserAvatar(leagueUser.user_avatar);
+    }
+
+    if (avatar) {
+      return avatar;
+    }
+  
+    return 'path/to/default/avatar.png';
+  }
+
   fetchTrades(page: number = 1, rosterId: string = "all"): void {
-    this.selectedTrade = null;
     this.selectedTrade = null;
     this.currentPage = page;
     this.error = null;

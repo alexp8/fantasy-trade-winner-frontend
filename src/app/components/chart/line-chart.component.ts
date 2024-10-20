@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, SimpleChanges  } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { Chart, CategoryScale, LinearScale, LineElement, PointElement, Title, Tooltip, Legend, LineController } from 'chart.js';
 import { Trade } from '../../models/trade.model';
 
@@ -13,9 +13,36 @@ export class LineChartComponent implements OnInit {
   @Input() trade!: Trade;
   private chart: Chart | undefined;
 
+  private greenShades = [
+
+    '#66bb6a',
+    '#4caf50', // Standard green
+    '#43a047',
+    '#388e3c',
+    '#2e7d32',
+    '#1b5e20',  // Dark green
+    '#e0f7e0', // Light green
+    '#c8e6c9',
+    '#a5d6a7',
+    '#81c784'
+  ];
+  
+  private redShades = [
+
+    '#f44336', // Standard red
+    '#e53935',
+    '#d32f2f',
+    '#c62828',
+    '#b71c1c',   // Dark red
+    '#ffebee', // Light red
+    '#ffcdd2',
+    '#ef9a9a',
+    '#e57373',
+    '#ef5350'
+  ];
+
   constructor() {
     Chart.register(CategoryScale, LinearScale, LineElement, PointElement, Title, Tooltip, Legend, LineController);
-
   }
 
   ngOnInit(): void {
@@ -35,15 +62,18 @@ export class LineChartComponent implements OnInit {
 
     const chartData = {
       labels: datasets[0].data.map(item => item.date),  // x-axis (dates)
-      datasets: datasets.map(dataset => ({
+      datasets: datasets.map((dataset, index) => ({
         label: dataset.label,  // Player's name as the label
         data: dataset.data.map(item => item.ktc_value),  // y-axis (ktc_values)
-        borderColor: dataset.won ? 'green' : 'red',  // Green for won, red for lost
+        borderColor: dataset.won ? this.greenShades[index % this.greenShades.length] : this.redShades[index % this.redShades.length],
         borderWidth: 2,
         fill: false,
         tension: 0.1
       }))
     };
+
+   
+    
 
     const options = {
       scales: {
@@ -64,10 +94,10 @@ export class LineChartComponent implements OnInit {
       }
     };
 
-      // Destroy the previous chart instance before creating a new one
-      if (this.chart) {
-        this.chart.destroy();
-      }
+    // Destroy the previous chart instance before creating a new one
+    if (this.chart) {
+      this.chart.destroy();
+    }
 
     // Initialize the Chart
     this.chart = new Chart(ctx, {
@@ -78,7 +108,7 @@ export class LineChartComponent implements OnInit {
   }
 
   extractPlayerKtcValues(trade: Trade) {
-    const datasets: { label: string; data: { ktc_value: number; date: string }[]; won: boolean }[] = [];
+    const datasets: { label: string; is_trade: boolean; data: { ktc_value: number; date: string }[]; won: boolean }[] = [];
 
     // Loop through the roster IDs in the trade
     trade.roster_ids.forEach(rosterId => {
@@ -89,28 +119,16 @@ export class LineChartComponent implements OnInit {
         datasets.push({
           label: player.player_name,
           won: roster.won,
+          is_trade: false,
           data: player.ktc_values.map(ktc => ({
             ktc_value: ktc.ktc_value,
             date: ktc.date
           }))
         });
       });
-
-      roster.draft_picks.forEach(draft_pick => {
-        
-        const valuesArray = datasets[0].data.map(item => ({
-          ktc_value: draft_pick.latest_value,
-          date: item.date
-        }));
-  
-        datasets.push({
-          label: draft_pick.description,
-          won: roster.won,
-          data: valuesArray
-        });
-      });
     });
 
     return datasets;
   }
+
 }

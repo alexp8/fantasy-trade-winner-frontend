@@ -12,10 +12,10 @@ export class LeagueService {
   constructor(private http: HttpClient) {}
 
   // http://127.0.0.1:8000/api/get_leagues/burg93
-  getLeague(user_name: string): Observable<LeagueResponse> {
+  getUserLeagues(user_name: string): Observable<LeagueResponse[]> {
     let url: string = `${this.apiUrl}/api/get_leagues/${user_name}`;
   
-    return this.http.get<LeagueResponse>(url);
+    return this.http.get<LeagueResponse[]>(url);
   }
   
 }

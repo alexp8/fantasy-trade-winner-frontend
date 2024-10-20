@@ -1,1 +1,24 @@
-<p>my leagues works!</p>
+<div *ngIf="!leagueResponses && !loading" class="centered-input">
+    <div class="user-id-input">
+        <label for="sleeper-user-name">Sleeper username</label>
+        <input id="sleeper-user-name" type="text" [(ngModel)]="userName" placeholder="Enter Sleeper username" />
+        <button (click)="fetchUserLeagues()" [disabled]="loading">Fetch Leagues</button>
+    </div>
+</div>
+
+<div *ngIf="leagueResponses" class="league-results-container">
+    <div class="league-panel-container">
+
+        <div class="league-panel" *ngFor="let league of leagueResponses">
+            <div class="league-header">
+                <img [src]="getLeagueAvatar(league.avatar)" alt="{{ league.name }}'s Avatar" class="league-avatar" />
+                <h3>{{ league.name }}</h3>
+            </div>
+            <div class="league-info">
+                <p>{{ league.type }} | Season: {{ league.season }}</p>
+                <p>League ID: {{ league.league_id }}</p>
+            </div>
+        </div>
+    </div>
+
+</div>

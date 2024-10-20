@@ -1,21 +1,20 @@
+<div *ngIf="(!tradeResponse && !loading)" class="centered-input">
+  <div class="league-id-input">
+    <label for="sleeper-league-id">Sleeper League ID:</label>
+    <input id="sleeper-league-id" type="text" [(ngModel)]="sleeperLeagueId" placeholder="Enter League ID" />
+    <button (click)="fetchTrades()" [disabled]="loading">Fetch Trades</button>
+  </div>
+</div>
+
 <div *ngIf="tradeResponse">
   <div class="trade-header">
     <img [src]="getLeagueAvatar()" alt="League Avatar" class="league-avatar" />
     <h3>{{ tradeResponse.league_name }}</h3>
   </div>
-  <h6>Season {{tradeResponse.previous_leagues.length + 1 }} </h6>
-
-  <!-- <div class="previous-leagues">
-    <h5>Previous Leagues</h5>
-    <div *ngFor="let previous_leaugue of tradeResponse.previous_leagues">
-      <ul>
-        <li>Season: {{ previous_leaugue.season }} | League ID: {{ previous_leaugue.previous_league_id }}</li>
-      </ul>
-    </div>
-  </div> -->
+  <h6>Season {{ tradeResponse && tradeResponse.previous_leagues ? tradeResponse.previous_leagues.length + 1 : 1 }}</h6>
 </div>
 
-<div class="trade-results-container">
+<div *ngIf="tradeResponse || loading" class="trade-results-container">
 
   <div class="trade-list-container">
 
@@ -44,7 +43,7 @@
           </li>
 
           <li *ngFor="let user of tradeResponse.league_users" (click)="selectUser(user)">
-            <img [src]="user.avatar_url" alt="{{ user.user_name }}'s Avatar" class="avatar-dropdown" />
+            <img [src]="getRosterAvatar(user.roster_id)" alt="{{ user.user_name }}'s Avatar" class="avatar-dropdown" />
             <span>{{ user.user_name }}</span>
           </li>
         </ul>
@@ -53,12 +52,12 @@
 
       <!-- Pagination controls at the top -->
       <div class="pagination">
-        <button (click)="firstPage()" [disabled]="tradeResponse?.page == 1 || loading">First</button>
-        <button (click)="previousPage()" [disabled]="!tradeResponse?.has_previous || loading">Previous</button>
-        <span>Page {{ tradeResponse?.page }} of {{ tradeResponse?.total_pages }}</span>
-        <button (click)="nextPage()" [disabled]="!tradeResponse?.has_next || loading">Next</button>
+        <button (click)="firstPage()" [disabled]="tradeResponse.page == 1 || loading">First</button>
+        <button (click)="previousPage()" [disabled]="!tradeResponse.has_previous || loading">Previous</button>
+        <span>Page {{ tradeResponse.page }} of {{ tradeResponse.total_pages }}</span>
+        <button (click)="nextPage()" [disabled]="!tradeResponse.has_next || loading">Next</button>
         <button (click)="lastPage()"
-          [disabled]="tradeResponse?.page == tradeResponse?.total_pages || loading">Last</button>
+          [disabled]="tradeResponse.page == tradeResponse.total_pages || loading">Last</button>
       </div>
     </div>
 
@@ -89,16 +88,17 @@
       <div class="roster-container">
 
         <!-- Loop through roster IDs and display TradeRoster details -->
-        <div *ngFor="let rosterId of selectedTrade.roster_ids" class="roster-block">
+        <div *ngFor="let rosterId of selectedTrade.roster_ids" class="roster-block"  [ngClass]="{'roster-won': selectedTrade[rosterId].won, 'roster-lost': !selectedTrade[rosterId].won}">
 
           <!-- Check if the TradeRoster exists for this rosterId -->
           <div *ngIf="selectedTrade[rosterId] as roster">
             <div class="roster-header">
-              <img [src]="roster.avatar_url" alt="{{ roster.user_name }}'s Avatar" class="roster-avatar" />
-              <h4 class="roster-username">{{ roster.user_name }}</h4>
+             
+              <img [src]="getRosterAvatar(roster.roster_id)" alt="{{ roster.user_name }}'s Avatar" class="roster-avatar" />
+              <h3 class="roster-username">{{ roster.user_name }}</h3>
             </div>
 
-            <div [ngClass]="{'roster-won': roster.won, 'roster-lost': !roster.won}">
+            <div>
 
               <div class="value-container">
                 <p>Total Current Value: {{ roster.total_current_value }}</p>

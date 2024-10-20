@@ -4,5 +4,6 @@ export interface LeagueResponse {
     avatar: string;
     season: string;
     sport: string;
-    type: string
+    type: string;
+    type_index: number;
 }

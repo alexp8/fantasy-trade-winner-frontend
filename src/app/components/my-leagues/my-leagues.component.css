@@ -1,0 +1,80 @@
+.centered-input {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.sleeper-user-name-input {
+    text-align: center;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Container for the results */
+.league-results-container {
+    display: flex;
+    flex-direction: column; /* Ensure items stack vertically */
+    align-items: center;    /* Center content horizontally */
+    padding: 16px;
+  }
+  
+  /* Container for individual panels */
+  .league-panel-container {
+    display: flex;
+    flex-direction: column; /* Each league panel will be a row */
+    width: 100%;            /* Take full width of the container */
+  }
+  
+  /* League panel styling */
+  .league-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    background-color: #f9f9f9;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    width: 80%;             /* Adjust this width for how wide you want each row */
+    border: 1px solid #ddd;  /* Add border around each row */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .league-panel:hover {
+    background-color: #f0f8ff; /* Change background color on hover */
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Flexbox for the header (image + league name) */
+  .league-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  /* Avatar styling */
+  .league-avatar {
+    width: 40px;   /* Smaller avatar */
+    height: 40px;
+    border-radius: 50%;
+  }
+  
+  /* League info text styling */
+  .league-header h3 {
+    font-size: 1.2rem;
+    margin: 0;
+  }
+  
+  /* Info text */
+  .league-info {
+    margin-top: 8px;
+  }
+  
+  .league-info p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #555;
+  }

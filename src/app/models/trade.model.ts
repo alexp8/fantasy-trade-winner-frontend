@@ -31,7 +31,6 @@ export interface TradeRoster {
   total_current_value: number;
   total_value_when_traded: number;
   user_name: string;
-  avatar_url: string;
   user_id: string;
   roster_id: number;
   fab: number;
@@ -51,14 +50,15 @@ export interface Trade {
 }
 
 export interface LeagueUser {
-  user_id: String;
-  user_name: String;
-  avatar_url: String;
+  user_id: string;
+  user_name: string;
+  roster_avatar: string;
+  user_avatar: string;
   roster_id: number;
 }
 
 export interface TradeResponse {
-  league_avatar: String;
+  league_avatar: string;
   league_name: String;
   league_season: String;
   page: number;

@@ -111,12 +111,16 @@ h5 {
   font-size: 18px;
 }
 
-/* Light transparent green background for winning rosters */
-.roster-won {  background-color: rgba(50, 145, 50, 0.127);
+.roster-won {  
+  border: 2px solid rgba(50, 145, 50, 0.7);
+  box-shadow: 0 0 10px rgba(50, 145, 50, 0.7);
+  background-color: transparent;
 }
 
 .roster-lost {
-  background-color: rgba(212, 80, 80, 0.132);
+  border: 2px solid rgba(212, 80, 80, 0.132);
+  box-shadow: 0 0 10px rgba(222, 79, 79, 0.7);
+  background-color: transparent;
 }
 
 .trade-background {
@@ -208,4 +212,19 @@ h5 {
   height: 20px;
   border-radius: 50%;
   margin-right: 10px;
+}
+
+.centered-input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.league-id-input {
+  text-align: center;
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
