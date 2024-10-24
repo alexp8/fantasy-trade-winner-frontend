@@ -4,12 +4,14 @@ import { TradeResponse, Trade, LeagueUser } from '../../models/trade.model';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LineChartComponent } from '../chart/line-chart.component';
+import { TradePaginationComponent } from '../trade-pagination/trade-pagination.component';
+import { TradeHomeComponent } from '../trade-home/trade-home.component';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-trades',
   standalone: true,
-  imports: [CommonModule, FormsModule, LineChartComponent],
+  imports: [CommonModule, FormsModule, LineChartComponent, TradePaginationComponent, TradeHomeComponent],
   templateUrl: './trade.component.html',
   styleUrls: ['./trade.component.css']
 })
@@ -37,10 +39,6 @@ export class TradeComponent {
     return `${this.playerThumb}/${sleeperPlayerId}.jpg`;
   }
 
-  goToMyLeague(event: MouseEvent): void {
-    this.router.navigate(['/my-leagues']);
-  }
-
   getLeagueAvatar(): string {
     return `${this.leagueThumb}/${this.tradeResponse?.league_avatar}`;
   }
@@ -54,9 +52,9 @@ export class TradeComponent {
   }
 
   getRosterAvatar(rosterId: number): string {
-    
+
     let leagueUser: LeagueUser | undefined = this.tradeResponse?.league_users.find(user => user.roster_id === rosterId);
-  
+
     let avatar;
     if (leagueUser) {
       avatar = leagueUser.roster_avatar || this.getUserAvatar(leagueUser.user_avatar);
@@ -65,7 +63,7 @@ export class TradeComponent {
     if (avatar) {
       return avatar;
     }
-  
+
     return 'path/to/default/avatar.png';
   }
 
@@ -94,30 +92,6 @@ export class TradeComponent {
         }
       }
     });
-  }
-
-  nextPage(): void {
-    if (this.tradeResponse && this.tradeResponse.has_next) {
-      this.fetchTrades(this.currentPage + 1);
-    }
-  }
-
-  previousPage(): void {
-    if (this.tradeResponse && this.tradeResponse.has_previous) {
-      this.fetchTrades(this.currentPage - 1);
-    }
-  }
-
-  firstPage(): void {
-    if (this.tradeResponse) {
-      this.fetchTrades(1);
-    }
-  }
-
-  lastPage(): void {
-    if (this.tradeResponse) {
-      this.fetchTrades(this.tradeResponse.total_pages);
-    }
   }
 
   selectTrade(trade: Trade): void {

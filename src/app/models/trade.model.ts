@@ -25,6 +25,8 @@ export interface DraftPick {
   latest_value: number;
   value_now_as_of: string | null;
   description: string;
+  player_drafted: Player | null; // todo use this
+  draft_slot: number | null; // todo use this
 }
 
 export interface TradeRoster {

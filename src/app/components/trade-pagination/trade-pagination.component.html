@@ -1,0 +1,9 @@
+<div class="pagination">
+  <button (click)="firstPage()" [disabled]="tradeResponse.page == 1 || loading">First</button>
+  <button (click)="previousPage()" [disabled]="!tradeResponse.has_previous || loading">Previous</button>
+  <span>Page {{ tradeResponse.page }} of {{ tradeResponse.total_pages }}</span>
+  <button (click)="nextPage()" [disabled]="!tradeResponse.has_next || loading">Next</button>
+  <button (click)="lastPage()"
+          [disabled]="tradeResponse.page == tradeResponse.total_pages || loading">Last
+  </button>
+</div>

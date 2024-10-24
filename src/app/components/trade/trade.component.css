@@ -1,12 +1,43 @@
-.trade-list-container {
-  width: 250px;
-  margin-right: 20px;
+.centered-input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
-.pagination {
+/* Main container for the trade-results and trade-details */
+.main-container {
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
+  flex-direction: row;
+  width: 100%;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+.trade-header-container {
+  margin-bottom: 20px; /* Add space below the header */
+  width: 100%; /* Ensure it takes full width */
+}
+
+.trade-results-container {
+  /* display: flex;
+  align-items: flex-start; */
+
+  flex: 1;
+  max-width: 30%; /* Adjust this to control the width of the trade list */
+  padding-right: 20px; /* Add some space between trade results and details */
+}
+
+
+.trade-list-container {
+  /* width: 250px; */
+  /* margin-right: 20px; */
+  background-color: #cecfc1;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Align to the left */
+  justify-content: flex-start;
 }
 
 .scrollable-trade-list {
@@ -38,9 +69,9 @@
 
 .trade-details {
   flex-grow: 1;
-  padding: 20px;
+  padding: 0px;
   border: 1px solid #ddd;
-  max-width: 70%;
+  max-width: 100%;
 }
 
 .player-avatar {
@@ -48,11 +79,6 @@
   /* height: 20px; */
   width: 15%;
   aspect-ratio: 25 / 16;
-}
-
-.trade-results-container {
-  display: flex;
-  align-items: flex-start;
 }
 
 /* Container that holds all roster blocks side by side */
@@ -103,7 +129,7 @@ h5 {
   font-size: 18px;
 }
 
-.roster-won {  
+.roster-won {
   border: 2px solid rgba(50, 145, 50, 0.7);
   box-shadow: 0 0 10px rgba(50, 145, 50, 0.7);
   background-color: transparent;
@@ -123,7 +149,7 @@ h5 {
   height: 100%;
 }
 
-.trade-header {
+.league-name {
   display: flex;
 }
 
@@ -202,9 +228,3 @@ h5 {
   margin-right: 10px;
 }
 
-.centered-input {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
