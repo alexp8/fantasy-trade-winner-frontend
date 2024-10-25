@@ -1,6 +1,5 @@
 <div *ngIf="(!tradeResponse && !loading)" class="centered-input">
-  <app-trade-home (sleeperLeagueIdChange)="sleeperLeagueId = $event"
-                  (fetchTradesEvent)="fetchTrades($event)">
+  <app-trade-home (sleeperLeagueIdChange)="sleeperLeagueId = $event" (fetchTradesEvent)="fetchTrades($event)">
   </app-trade-home>
   <div *ngIf="error" class="error">{{ error }}</div>
 </div>
@@ -9,15 +8,13 @@
   <div class="trade-left-nav">
     <div *ngIf="tradeResponse" class="trade-header-container">
       <div class="league-name" id="league-name">
-        <img [src]="getLeagueAvatar()" alt="League Avatar" class="league-avatar"/>
+        <img [src]="getLeagueAvatar()" alt="League Avatar" class="league-avatar" />
         <h3>{{ tradeResponse.league_name }}</h3>
       </div>
-      <h6>Season {{ tradeResponse && tradeResponse.previous_leagues ? tradeResponse.previous_leagues.length + 1 : 1 }}
-      </h6>
     </div>
 
     <div *ngIf="tradeResponse || loading" class="trade-results-container" id="trade-results-container">
-      <div *ngIf="tradeResponse">
+      <div *ngIf="tradeResponse" style="padding-left: 10px">
         <p>{{ tradeResponse.total_trades }} trades found</p>
 
         <div class="custom-dropdown">
@@ -31,17 +28,15 @@
             </li>
             <li *ngFor="let user of tradeResponse.league_users" (click)="selectUser(user)">
               <img [src]="getRosterAvatar(user.roster_id)" alt="{{ user.user_name }}'s Avatar"
-                   class="avatar-dropdown"/>
+                class="avatar-dropdown" />
               <span>{{ user.user_name }}</span>
             </li>
           </ul>
         </div>
 
         <!-- Pagination controls at the top -->
-        <app-trade-pagination [loading]="loading"
-                              [tradeResponse]="tradeResponse"
-                              [currentPage]="currentPage"
-                              (fetchTradesEvent)="fetchTrades($event)">
+        <app-trade-pagination [loading]="loading" [tradeResponse]="tradeResponse" [currentPage]="currentPage"
+          (fetchTradesEvent)="fetchTrades($event)">
         </app-trade-pagination>
       </div>
 
@@ -49,18 +44,22 @@
       <div class="scrollable-trade-list">
         <div *ngIf="loading" class="trade-item">
           <div *ngFor="let i of [].constructor(20)">
-            <img src="{{ where_them_trades_at_url }}" alt="Loading..." class="loading-img"/>
+            <img src="{{ where_them_trades_at_url }}" alt="Loading..." class="loading-img" />
           </div>
         </div>
         <div *ngIf="!loading">
           <div *ngFor="let trade of tradeResponse?.trades" class="trade-item"
-               [ngClass]="{'selected': trade === selectedTrade}" (click)="selectTrade(trade)">
+            [ngClass]="{'selected': trade === selectedTrade}" (click)="selectTrade(trade)">
             <p>{{ trade.created_at_pretty }}</p>
             <p>{{ trade[trade.roster_ids[0]].user_name }} | {{ trade[trade.roster_ids[1]].user_name }}</p>
           </div>
         </div>
       </div>
     </div>
+  </div>
+
+  <div class="divider">
+
   </div>
 
   <!-- Full details of the selected trade -->
@@ -73,13 +72,13 @@
 
         <!-- Loop through roster IDs and display TradeRoster details -->
         <div *ngFor="let rosterId of selectedTrade.roster_ids" class="roster-block"
-             [ngClass]="{'roster-won': selectedTrade[rosterId].won, 'roster-lost': !selectedTrade[rosterId].won}">
+          [ngClass]="{'roster-won': selectedTrade[rosterId].won, 'roster-lost': !selectedTrade[rosterId].won}">
 
           <!-- Check if the TradeRoster exists for this rosterId -->
           <div *ngIf="selectedTrade[rosterId] as roster">
             <div class="roster-header">
               <img [src]="getRosterAvatar(roster.roster_id)" alt="{{ roster.user_name }}'s Avatar"
-                   class="roster-avatar"/>
+                class="roster-avatar" />
               <h3 class="roster-username">{{ roster.user_name }}</h3>
             </div>
 
@@ -88,9 +87,9 @@
                 <p>Total Current Value: {{ roster.total_current_value }}</p>
 
                 <img *ngIf="roster.total_current_value > roster.total_value_when_traded"
-                     src="assets/icons/stonks_up.png" alt="Value increased" class="value-change-icon"/>
+                  src="assets/icons/stonks_up.png" alt="Value increased" class="value-change-icon" />
                 <img *ngIf="roster.total_current_value < roster.total_value_when_traded"
-                     src="assets/icons/stonks_down.jpg" alt="Value decreased" class="value-change-icon"/>
+                  src="assets/icons/stonks_down.jpg" alt="Value decreased" class="value-change-icon" />
               </div>
 
               <p>Total Value When Traded: {{ roster.total_value_when_traded }}</p>
@@ -105,7 +104,7 @@
               <ul>
                 <li *ngFor="let player of roster.players">
                   <img [src]="getPlayerImageUrl(player.player_id)" alt="{{ player.player_name }}'s Avatar"
-                       class="player-avatar"/>
+                    class="player-avatar" />
                   {{ player.player_name }}
                   <ul>
                     <li>Value When Traded: {{ player.value_when_traded == 0 ? '?' : player.value_when_traded }}</li>
@@ -129,7 +128,9 @@
                 <li *ngFor="let pick of roster.draft_picks">
                   {{ pick.description }}
                   <ul>
+                    <li *ngIf="pick.player_drafted">{{ pick.player_drafted.player_name }}</li>
                     <li>Value When Traded: {{ pick.value_when_traded }}</li>
+                    <li *ngIf="pick.player_drafted">Latest Value: {{ pick.player_drafted.latest_value }}</li>
                   </ul>
                 </li>
               </ul>

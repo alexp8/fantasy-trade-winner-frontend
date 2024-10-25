@@ -14,8 +14,13 @@
   box-sizing: border-box;
 }
 
+.trade-left-nav {
+  background-color: #adc5b2;
+  width: 30%;
+}
+
 .trade-header-container {
-  margin-bottom: 20px; /* Add space below the header */
+  /* padding: 20px; */
   width: 100%; /* Ensure it takes full width */
 }
 
@@ -24,8 +29,8 @@
   align-items: flex-start; */
 
   flex: 1;
-  max-width: 30%; /* Adjust this to control the width of the trade list */
-  padding-right: 20px; /* Add some space between trade results and details */
+  max-width: 100%; /* Adjust this to control the width of the trade list */
+ 
 }
 
 
@@ -44,9 +49,12 @@
   max-height: 400px;
   overflow-y: auto;
   border: 1px solid #ddd;
-  padding: 10px;
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
   width: 100%;
+}
+
+.divider {
+  width: 1%;
 }
 
 .trade-item {
@@ -68,10 +76,13 @@
 }
 
 .trade-details {
+  padding-left: 5px;
+  border: #000000;
   flex-grow: 1;
-  padding: 0px;
+  padding: 5px;
   border: 1px solid #ddd;
   max-width: 100%;
+  background-color: #d6d6ce;
 }
 
 .player-avatar {

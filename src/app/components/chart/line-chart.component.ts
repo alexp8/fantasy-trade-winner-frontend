@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { Chart, CategoryScale, LinearScale, LineElement, PointElement, Title, Tooltip, Legend, LineController } from 'chart.js';
-import { Trade } from '../../models/trade.model';
+import { KtcValue, Trade } from '../../models/trade.model';
 
 @Component({
   selector: 'app-line-chart',
@@ -14,7 +14,6 @@ export class LineChartComponent implements OnInit {
   private chart: Chart | undefined;
 
   private greenShades = [
-
     '#66bb6a',
     '#4caf50', // Standard green
     '#43a047',
@@ -26,9 +25,8 @@ export class LineChartComponent implements OnInit {
     '#a5d6a7',
     '#81c784'
   ];
-  
-  private redShades = [
 
+  private redShades = [
     '#f44336', // Standard red
     '#e53935',
     '#d32f2f',
@@ -71,9 +69,6 @@ export class LineChartComponent implements OnInit {
         tension: 0.1
       }))
     };
-
-   
-    
 
     const options = {
       scales: {
@@ -126,9 +121,48 @@ export class LineChartComponent implements OnInit {
           }))
         });
       });
+
+      // graph the draft picks
+      roster.draft_picks.forEach(draft_pick => {
+        let ktc_values: KtcValue[] = [];
+        let label = draft_pick.description;
+
+        // set ktc_values to the drafted_player, or if future pick set a static ktc value
+        if (draft_pick.player_drafted) {
+          ktc_values = draft_pick.player_drafted.ktc_values;
+
+          // ktc_values.forEach(value => {
+          //   console.log(`Name: ${draft_pick.player_drafted?.player_name}, Date: ${value.date}, Value: ${value.ktc_value}`);
+          // });
+
+          label = draft_pick.description + " (" + draft_pick.player_drafted.player_name + ")";
+        } else if (roster.players.length > 0) {
+          ktc_values = roster.players[0].ktc_values.map(ktc => ({
+            ktc_value: draft_pick.latest_value,
+            date: ktc.date
+          }));
+        }
+
+        if (ktc_values.length != 0) {
+
+          datasets.push({
+            label: label,
+            won: roster.won,
+            is_trade: true,
+            data: ktc_values.map(ktc => ({
+              ktc_value: ktc.ktc_value,
+              date: ktc.date
+            }))
+          });
+          // ktc_values.forEach(value => {
+          //   console.log(`Name: ${draft_pick.player_drafted?.player_name}, Date: ${value.date}, Value: ${value.ktc_value}`);
+          // });
+        }
+
+      });
+
     });
 
     return datasets;
   }
-
 }
