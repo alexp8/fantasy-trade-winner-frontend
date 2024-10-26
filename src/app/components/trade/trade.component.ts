@@ -6,12 +6,13 @@ import { FormsModule } from '@angular/forms';
 import { LineChartComponent } from '../chart/line-chart.component';
 import { TradePaginationComponent } from '../trade-pagination/trade-pagination.component';
 import { TradeHomeComponent } from '../trade-home/trade-home.component';
+import { TradeScrollItemComponent } from './trade-scroll-item.component';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-trades',
   standalone: true,
-  imports: [CommonModule, FormsModule, LineChartComponent, TradePaginationComponent, TradeHomeComponent],
+  imports: [CommonModule, FormsModule, LineChartComponent, TradePaginationComponent, TradeHomeComponent, TradeScrollItemComponent],
   templateUrl: './trade.component.html',
   styleUrls: ['./trade.component.css']
 })

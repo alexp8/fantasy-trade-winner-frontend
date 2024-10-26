@@ -6,6 +6,9 @@
 
 <div class="main-container">
   <div class="trade-left-nav">
+    <div *ngIf="loading" class="trade-item">
+      <img src="{{ where_them_trades_at_url }}" alt="Loading..." class="loading-img" />
+    </div>
     <div *ngIf="tradeResponse" class="trade-header-container">
       <div class="league-name" id="league-name">
         <img [src]="getLeagueAvatar()" alt="League Avatar" class="league-avatar" />
@@ -51,12 +54,22 @@
           <div *ngFor="let trade of tradeResponse?.trades" class="trade-item"
             [ngClass]="{'selected': trade === selectedTrade}" (click)="selectTrade(trade)">
             <p>{{ trade.created_at_pretty }}</p>
-            <p>{{ trade[trade.roster_ids[0]].user_name }} | {{ trade[trade.roster_ids[1]].user_name }}</p>
+            <div class="scrollable-trade-list-item-container">
+              <div class="left-align">
+                <app-trade-scroll-item [tradeData]="trade[trade.roster_ids[0]]">
+                </app-trade-scroll-item>
+              </div>
+              <div class="right-align">
+                <app-trade-scroll-item [tradeData]="trade[trade.roster_ids[1]]">
+                </app-trade-scroll-item>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+
 
   <div class="divider">
 

@@ -17,40 +17,57 @@
 .trade-left-nav {
   background-color: #adc5b2;
   width: 30%;
+  border-bottom: 2px solid #000000;
 }
 
 .trade-header-container {
-  /* padding: 20px; */
-  width: 100%; /* Ensure it takes full width */
+  width: 100%;
 }
 
 .trade-results-container {
-  /* display: flex;
-  align-items: flex-start; */
-
   flex: 1;
-  max-width: 100%; /* Adjust this to control the width of the trade list */
- 
+  max-width: 100%;
 }
 
-
 .trade-list-container {
-  /* width: 250px; */
-  /* margin-right: 20px; */
   background-color: #cecfc1;
-
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* Align to the left */
+  align-items: flex-start;
   justify-content: flex-start;
 }
 
 .scrollable-trade-list {
   max-height: 400px;
   overflow-y: auto;
-  border: 1px solid #ddd;
-  /* margin-bottom: 20px; */
+  border: 1px solid #000000;
   width: 100%;
+}
+
+.scrollable-trade-list-item-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.scrollable-trade-list-item {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.left-align {
+  align-items: flex-start;
+  padding: 5px;
+}
+
+.right-align {
+  align-items: flex-end;
+  padding: 5px;
+}
+
+.user-name {
+  font-size: larger;
+  font-weight: bold;
 }
 
 .divider {
@@ -60,7 +77,7 @@
 .trade-item {
   cursor: pointer;
   padding: 10px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 2px solid #000000;
 }
 
 .trade-item.selected {
@@ -195,7 +212,7 @@ h5 {
   font-size: 16px;
 }
 
-.previous-leagues  {
+.previous-leagues {
   border-bottom: 1px solid #eee;
 }
 
@@ -238,4 +255,3 @@ h5 {
   border-radius: 50%;
   margin-right: 10px;
 }
-
