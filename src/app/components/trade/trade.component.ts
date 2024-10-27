@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TradeService } from '../../services/trade.service';
 import { TradeResponse, Trade, LeagueUser } from '../../models/trade.model';
 import { CommonModule } from '@angular/common';
@@ -8,6 +8,7 @@ import { TradePaginationComponent } from '../trade-pagination/trade-pagination.c
 import { TradeHomeComponent } from '../trade-home/trade-home.component';
 import { TradeScrollItemComponent } from './trade-scroll-item.component';
 import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-trades',
@@ -16,10 +17,10 @@ import { Router } from '@angular/router';
   templateUrl: './trade.component.html',
   styleUrls: ['./trade.component.css']
 })
-export class TradeComponent {
+export class TradeComponent implements OnInit {
   tradeResponse: TradeResponse | null = null;
   error: string | null = null;
-  sleeperLeagueId: string = '';
+  sleeperLeagueId: string | null = '';
   selectedTrade: Trade | null = null;
   currentPage: number = 1;
   loading: Boolean = false
@@ -28,12 +29,26 @@ export class TradeComponent {
   leagueThumb: String = "https://sleepercdn.com/avatars/thumbs"
   playerThumb: String = "https://sleepercdn.com/content/nfl/players/thumb"
   dropdownOpen = false;
+  selectedRosterId: number | string = "all";
   selectedUser: LeagueUser | null = null;
 
-  constructor(private tradeService: TradeService, private router: Router) { }
+  constructor(private tradeService: TradeService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
 
+    this.sleeperLeagueId = this.route.snapshot.paramMap.get('sleeperLeagueId');
+    this.selectedRosterId = this.route.snapshot.queryParamMap.get('rosterId') || "all";
+    this.currentPage =  Number(this.route.snapshot.queryParamMap.get('page')) || 1;
+
+    if (this.sleeperLeagueId) {
+      this.fetchTrades(this.currentPage, this.selectedRosterId);
+    }
+  }
+
+  onLeagueIdChange(newLeagueId: string) {
+    this.sleeperLeagueId = newLeagueId;
+
+    this.router.navigate(['trades', newLeagueId]);
   }
 
   getPlayerImageUrl(sleeperPlayerId: string): string {
@@ -73,26 +88,41 @@ export class TradeComponent {
     this.currentPage = page;
     this.error = null;
 
+    this.router.navigate([], { 
+      queryParams: { page },
+      queryParamsHandling: 'merge'
+    });
+
     if (!this.sleeperLeagueId) {
       this.error = 'Please enter a valid Sleeper League ID';
       return;
     }
-    this.loading = true
+    this.loading = true;
     this.tradeService.getTrades(this.sleeperLeagueId, page, rosterId).subscribe({
       next: (response: TradeResponse) => {
         this.tradeResponse = response;
         this.currentPage = response.page;
-        this.loading = false
+        this.loading = false;
+
+        if (rosterId != "all") {
+          this.selectedUser = this.tradeResponse?.league_users.find(user => user.roster_id.toString() === rosterId.toString()) || null;
+        }
       },
       error: (err) => {
-        this.loading = false
+
         if (err.status === 404) {
           this.error = 'Sleeper League ID does not exist.';
+          this.loading = false;
+        } else if (err.status == 0) {
+          console.warn('Ignored error with status 0 - likely a transient network issue.');
+          // If you open the 'trades' component with a leagueId, the API immediately throws an exception with statusCode=0, then the API completes successfully. why??
         } else {
           this.error = 'Failed to fetch trades. Please try again.';
+          this.loading = false;
         }
       }
     });
+
   }
 
   selectTrade(trade: Trade): void {
@@ -101,7 +131,6 @@ export class TradeComponent {
 
   updateTrades(event: any): void {
     const selectedValue = event.target.value;
-    console.log(`updateTrades ${selectedValue}`)
     this.fetchTrades(1, selectedValue);
   }
 
@@ -109,18 +138,20 @@ export class TradeComponent {
     this.dropdownOpen = !this.dropdownOpen;
   }
 
-  selectUser(user: LeagueUser | null): void {
+  selectUser(rosterId: number | string = "all"): void {
 
-    if (user == this.selectedUser)
+    if (rosterId == this.selectedRosterId)
       return;
 
-    this.selectedUser = user;
+    this.selectedRosterId = rosterId;
     this.dropdownOpen = false;
 
-    if (this.selectedUser != null) {
-      this.fetchTrades(1, `${this.selectedUser.roster_id}`);
-    } else {
-      this.fetchTrades(1);
-    }
+    this.fetchTrades(1, `${rosterId}`);
+    this.selectedUser = this.tradeResponse?.league_users.find(user => user.roster_id === rosterId) || null;
+
+    this.router.navigate([], { 
+      queryParams: { rosterId },
+      queryParamsHandling: 'merge'
+    });
   }
 }

@@ -3,6 +3,7 @@ import { LeagueResponse } from '../../models/league.model';
 import { LeagueService } from '../../services/league.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-my-leagues',
@@ -19,7 +20,7 @@ export class MyLeaguesComponent {
   leagueThumb: String = "https://sleepercdn.com/avatars/thumbs"
   loadingGif: String = "https://i.pinimg.com/originals/4d/0a/29/4d0a2935029461cd1135eeb9f0de58a4.gif"
 
-  constructor(private leagueService: LeagueService) { }
+  constructor(private leagueService: LeagueService, private router: Router) { }
 
   ngOnInit(): void {
 
@@ -49,6 +50,10 @@ export class MyLeaguesComponent {
         this.error = 'Failed to fetch user leagues. Please try again.';
       }
     });
+  }
+
+  navigateToTrades(sleeperLeagueId: string): void {
+    this.router.navigate(['/trades', sleeperLeagueId]);
   }
 
 }

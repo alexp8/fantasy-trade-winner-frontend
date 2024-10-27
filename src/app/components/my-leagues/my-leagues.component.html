@@ -20,7 +20,7 @@
 
 <div *ngIf="leagueResponses" class="league-results-container">
     <div class="league-panel-container">
-        <div class="league-panel" *ngFor="let league of leagueResponses">
+        <div class="league-panel" *ngFor="let league of leagueResponses" (click)="navigateToTrades(league.league_id)">
             <div class="league-header">
                 <img [src]="getLeagueAvatar(league.avatar)" alt="{{ league.name }}'s Avatar" class="league-avatar" />
                 <h3>{{ league.name }}</h3>

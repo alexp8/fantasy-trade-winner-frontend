@@ -1,12 +1,10 @@
 <div *ngIf="(!tradeResponse && !loading)" class="centered-input">
-  <app-trade-home (sleeperLeagueIdChange)="sleeperLeagueId = $event" (fetchTradesEvent)="fetchTrades($event)">
-  </app-trade-home>
+  <app-trade-home (sleeperLeagueIdChange)="onLeagueIdChange($event)"></app-trade-home>
   <div *ngIf="error" class="error">{{ error }}</div>
 </div>
-
 <div class="main-container">
   <div class="trade-left-nav">
-    <div *ngIf="loading" class="trade-item">
+    <div *ngIf="loading && !tradeResponse" class="trade-item">
       <img src="{{ where_them_trades_at_url }}" alt="Loading..." class="loading-img" />
     </div>
     <div *ngIf="tradeResponse" class="trade-header-container">
@@ -22,14 +20,14 @@
 
         <div class="custom-dropdown">
           <div class="selected-option" (click)="toggleDropdown()">
-            {{ selectedUser?.user_name || 'Select a user' }}
+            {{ selectedUser?.user_name || 'All' }}
           </div>
 
           <ul *ngIf="dropdownOpen" class="options-list">
-            <li (click)="selectUser(null)">
+            <li (click)="selectUser()">
               <span>All</span>
             </li>
-            <li *ngFor="let user of tradeResponse.league_users" (click)="selectUser(user)">
+            <li *ngFor="let user of tradeResponse.league_users" (click)="selectUser(user.roster_id)">
               <img [src]="getRosterAvatar(user.roster_id)" alt="{{ user.user_name }}'s Avatar"
                 class="avatar-dropdown" />
               <span>{{ user.user_name }}</span>

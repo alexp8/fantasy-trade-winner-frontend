@@ -34,12 +34,14 @@
     margin-bottom: 12px;
     width: 80%;
     border: 1px solid #ddd;
+    cursor: pointer;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .league-panel:hover {
     background-color: #f0f8ff;
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
 }
 
 /* League header with image and name */
@@ -66,5 +68,4 @@
     font-size: 0.9rem;
     color: #555;
 }
-
 
