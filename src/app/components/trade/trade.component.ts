@@ -22,6 +22,7 @@ export class TradeComponent implements OnInit {
   error: string | null = null;
   sleeperLeagueId: string | null = '';
   selectedTrade: Trade | null = null;
+  selectedTradeId: string | null = null;
   currentPage: number = 1;
   loading: Boolean = false
   where_them_trades_at_url = "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExNnRwcXdpa2w1emdkZmNxY2pmam10eDdnZXY2ZWpxZmV2a3RtNzc3NiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/OStrMR6ykemf0Bkk1x/giphy.webp"
@@ -39,6 +40,7 @@ export class TradeComponent implements OnInit {
     this.sleeperLeagueId = this.route.snapshot.paramMap.get('sleeperLeagueId');
     this.selectedRosterId = this.route.snapshot.queryParamMap.get('rosterId') || "all";
     this.currentPage =  Number(this.route.snapshot.queryParamMap.get('page')) || 1;
+    this.selectedTradeId = this.route.snapshot.queryParamMap.get('tradeId') || null;
 
     if (this.sleeperLeagueId) {
       this.fetchTrades(this.currentPage, this.selectedRosterId);
@@ -98,7 +100,7 @@ export class TradeComponent implements OnInit {
       return;
     }
     this.loading = true;
-    this.tradeService.getTrades(this.sleeperLeagueId, page, rosterId).subscribe({
+    this.tradeService.getTrades(this.sleeperLeagueId, page, rosterId, selectedTradeId).subscribe({
       next: (response: TradeResponse) => {
         this.tradeResponse = response;
         this.currentPage = response.page;
@@ -106,6 +108,10 @@ export class TradeComponent implements OnInit {
 
         if (rosterId != "all") {
           this.selectedUser = this.tradeResponse?.league_users.find(user => user.roster_id.toString() === rosterId.toString()) || null;
+        }
+
+        if (this.selectedTradeId != null) {
+          this.selectTrade = this.tradeResponse?.trades.find(trade => trade.transaction_id === this.selectedTradeId) || null;
         }
       },
       error: (err) => {

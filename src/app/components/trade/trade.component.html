@@ -82,8 +82,11 @@
       <div class="roster-container">
 
         <!-- Loop through roster IDs and display TradeRoster details -->
-        <div *ngFor="let rosterId of selectedTrade.roster_ids" class="roster-block"
-          [ngClass]="{'roster-won': selectedTrade[rosterId].won, 'roster-lost': !selectedTrade[rosterId].won}">
+        <div *ngFor="let rosterId of selectedTrade.roster_ids" class="roster-block" [ngClass]="{
+          'roster-won': selectedTrade[rosterId].won && !selectedTrade[rosterId].tie,
+          'roster-lost': !selectedTrade[rosterId].won && !selectedTrade[rosterId].tie,
+          'roster-tie': selectedTrade[rosterId].tie
+      }">
 
           <!-- Check if the TradeRoster exists for this rosterId -->
           <div *ngIf="selectedTrade[rosterId] as roster">

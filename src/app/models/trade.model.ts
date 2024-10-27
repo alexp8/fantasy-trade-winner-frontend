@@ -39,6 +39,7 @@ export interface TradeRoster {
   players: Player[];
   draft_picks: DraftPick[];
   won: boolean;
+  tie: boolean;
   most_valuable_player: string;
   most_valuable_draft_pick: string;
 }
