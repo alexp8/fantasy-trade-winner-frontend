@@ -20,7 +20,7 @@
 
         <div class="custom-dropdown">
           <div class="selected-option" (click)="toggleDropdown()">
-            {{ selectedUser?.user_name || 'All' }}
+            {{ selectedUser?.user_name || 'Select a User' }}
           </div>
 
           <ul *ngIf="dropdownOpen" class="options-list">

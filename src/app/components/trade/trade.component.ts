@@ -39,11 +39,11 @@ export class TradeComponent implements OnInit {
 
     this.sleeperLeagueId = this.route.snapshot.paramMap.get('sleeperLeagueId');
     this.selectedRosterId = this.route.snapshot.queryParamMap.get('rosterId') || "all";
-    this.currentPage =  Number(this.route.snapshot.queryParamMap.get('page')) || 1;
+    this.currentPage = Number(this.route.snapshot.queryParamMap.get('page')) || 1;
     this.selectedTradeId = this.route.snapshot.queryParamMap.get('tradeId') || null;
 
     if (this.sleeperLeagueId) {
-      this.fetchTrades(this.currentPage, this.selectedRosterId);
+      this.fetchTrades(this.currentPage, this.selectedRosterId, this.selectedTradeId);
     }
   }
 
@@ -85,12 +85,12 @@ export class TradeComponent implements OnInit {
     return 'path/to/default/avatar.png';
   }
 
-  fetchTrades(page: number = 1, rosterId: string = "all"): void {
+  fetchTrades(page: number = 1, rosterId: string = "all", selectedTradeId: string | null = null): void {
     this.selectedTrade = null;
     this.currentPage = page;
     this.error = null;
 
-    this.router.navigate([], { 
+    this.router.navigate([], {
       queryParams: { page },
       queryParamsHandling: 'merge'
     });
@@ -111,8 +111,18 @@ export class TradeComponent implements OnInit {
         }
 
         if (this.selectedTradeId != null) {
-          this.selectTrade = this.tradeResponse?.trades.find(trade => trade.transaction_id === this.selectedTradeId) || null;
+          this.selectedTrade = this.tradeResponse?.trades.find(trade => trade.transaction_id === this.selectedTradeId) || null;
+
+          this.router.navigate([], {
+            queryParams: { transaction_id: this.selectedTrade?.transaction_id },
+            queryParamsHandling: 'merge'
+          });
         }
+
+        this.router.navigate([], {
+          queryParams: { page: this.tradeResponse.page },
+          queryParamsHandling: 'merge'
+        });
       },
       error: (err) => {
 
@@ -155,7 +165,7 @@ export class TradeComponent implements OnInit {
     this.fetchTrades(1, `${rosterId}`);
     this.selectedUser = this.tradeResponse?.league_users.find(user => user.roster_id === rosterId) || null;
 
-    this.router.navigate([], { 
+    this.router.navigate([], {
       queryParams: { rosterId },
       queryParamsHandling: 'merge'
     });
