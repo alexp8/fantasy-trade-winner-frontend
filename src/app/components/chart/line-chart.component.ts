@@ -1,6 +1,24 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
-import { Chart, CategoryScale, LinearScale, LineElement, PointElement, Title, Tooltip, Legend, LineController } from 'chart.js';
+import {
+  Chart,
+  ChartOptions,
+  CategoryScale,
+  LinearScale,
+  TimeScale,
+  LineElement,
+  PointElement,
+  Title,
+  Tooltip,
+  Legend,
+  LineController
+} from 'chart.js';
 import { KtcValue, Trade } from '../../models/trade.model';
+import 'chartjs-adapter-date-fns'; 
+
+interface DataPoint {
+  x: string;  // Date as a string
+  y: number;  // KTC value
+}
 
 @Component({
   selector: 'app-line-chart',
@@ -11,7 +29,7 @@ import { KtcValue, Trade } from '../../models/trade.model';
 export class LineChartComponent implements OnInit {
 
   @Input() trade!: Trade;
-  private chart: Chart | undefined;
+  private chart: Chart<'line', DataPoint[]> | undefined
 
   private greenShades = [
     '#66bb6a',
@@ -40,7 +58,7 @@ export class LineChartComponent implements OnInit {
   ];
 
   constructor() {
-    Chart.register(CategoryScale, LinearScale, LineElement, PointElement, Title, Tooltip, Legend, LineController);
+    Chart.register(CategoryScale, LinearScale, LineElement, PointElement, Title, TimeScale, Tooltip, Legend, LineController);
   }
 
   ngOnInit(): void {
@@ -59,10 +77,9 @@ export class LineChartComponent implements OnInit {
     const datasets = this.extractPlayerKtcValues(trade);
 
     const chartData = {
-      labels: datasets[0].data.map(item => item.date),  // x-axis (dates)
       datasets: datasets.map((dataset, index) => ({
         label: dataset.label,  // Player's name as the label
-        data: dataset.data.map(item => item.ktc_value),  // y-axis (ktc_values)
+        data: dataset.data.map(item => ({ x: item.date, y: item.ktc_value })),  // Format data with { x, y } for dates and values
         borderColor: dataset.won ? this.greenShades[index % this.greenShades.length] : this.redShades[index % this.redShades.length],
         borderWidth: 2,
         fill: false,
@@ -70,10 +87,13 @@ export class LineChartComponent implements OnInit {
       }))
     };
 
-    const options = {
+    const options: ChartOptions<'line'> = {  // Specify the type of options
       scales: {
         x: {
-          beginAtZero: false,
+          type: 'time',
+          time: {
+            unit: 'day',
+          },
           title: {
             display: true,
             text: 'Date'
@@ -98,7 +118,7 @@ export class LineChartComponent implements OnInit {
     this.chart = new Chart(ctx, {
       type: 'line',
       data: chartData,
-      options: options
+      options: options as ChartOptions<'line'>
     });
   }
 

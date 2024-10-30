@@ -65,7 +65,5 @@ export class TradePaginationComponent {
     if (totalPages > 1) {
       this.pages.push(totalPages);
     }
-
-    console.log(this.pages);
   }
 }
