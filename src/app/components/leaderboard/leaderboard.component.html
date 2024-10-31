@@ -1,0 +1,32 @@
+<div *ngIf="!leaderboardResponse && !loading" class="centered-input">
+    <div *ngIf="error" class="error">
+        <p>{{ error }}</p>
+    </div>
+
+    <div class="input-container">
+        <label for="sleeper-user-name" class="sleeper-label">Sleeper League Id</label>
+        <input id="sleeper-user-name" type="text" class="input" [(ngModel)]="sleeperLeagueId"
+            placeholder="Enter Sleeper username" />
+        <button (click)="fetchLeaderboard()" [disabled]="loading" class="button">Fetch Leagues</button>
+    </div>
+</div>
+
+<div *ngIf="loading">
+    <img src="{{ loadingGif }}" alt="" />
+</div>
+
+<div *ngIf="leaderboardResponse" class="league-results-container">
+    <h3>{{ leaderboardResponse.league_name }}</h3>
+    <div class="league-panel-container">
+        <div *ngFor="let ranking of leaderboardResponse.rankings">
+
+            <div class="league-header">
+                <img [src]="getRosterAvatar(ranking.roster_id)" alt="" class="league-avatar" />
+            </div>
+            <div class="league-info">
+                <p>{{ ranking.username }} | Net Value Gained: {{ ranking.total_net_value }}</p>
+            </div>
+
+        </div>
+    </div>
+</div>

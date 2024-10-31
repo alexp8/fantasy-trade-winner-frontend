@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { TradeResponse } from '../../models/trade.model';
+import { TradeResponse } from '../../../models/trade.model';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 

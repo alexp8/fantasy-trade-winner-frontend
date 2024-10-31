@@ -68,94 +68,14 @@
     </div>
   </div>
 
-
   <div class="divider">
 
   </div>
 
   <!-- Full details of the selected trade -->
   <div class="trade-details" id="trade-details" *ngIf="selectedTrade">
-    <div *ngIf="selectedTrade">
-      <p>{{ selectedTrade.created_at_pretty }}</p>
-
-      <!-- Roster container to display rosters side by side -->
-      <div class="roster-container">
-
-        <!-- Loop through roster IDs and display TradeRoster details -->
-        <div *ngFor="let rosterId of selectedTrade.roster_ids" class="roster-block" [ngClass]="{
-          'roster-won': selectedTrade[rosterId].won && !selectedTrade[rosterId].tie,
-          'roster-lost': !selectedTrade[rosterId].won && !selectedTrade[rosterId].tie,
-          'roster-tie': selectedTrade[rosterId].tie
-      }">
-
-          <!-- Check if the TradeRoster exists for this rosterId -->
-          <div *ngIf="selectedTrade[rosterId] as roster">
-            <div class="roster-header">
-              <img [src]="getRosterAvatar(roster.roster_id)" alt="{{ roster.user_name }}'s Avatar"
-                class="roster-avatar" />
-              <h3 class="roster-username">{{ roster.user_name }}</h3>
-            </div>
-
-            <div>
-              <div class="value-container">
-                <p>Total Current Value: {{ roster.total_current_value }}</p>
-
-                <img *ngIf="roster.total_current_value > roster.total_value_when_traded"
-                  src="assets/icons/stonks_up.png" alt="Value increased" class="value-change-icon" />
-                <img *ngIf="roster.total_current_value < roster.total_value_when_traded"
-                  src="assets/icons/stonks_down.jpg" alt="Value decreased" class="value-change-icon" />
-              </div>
-
-              <p>Total Value When Traded: {{ roster.total_value_when_traded }}</p>
-            </div>
-            <div *ngIf="roster.fab > 0">
-              <p>FAB: ${{ roster.fab }}</p>
-            </div>
-
-            <!-- Display players for this roster -->
-            <div *ngIf="roster.players.length > 0">
-              <h5>Players:</h5>
-              <ul>
-                <li *ngFor="let player of roster.players">
-                  <img [src]="getPlayerImageUrl(player.player_id)" alt="{{ player.player_name }}'s Avatar"
-                    class="player-avatar" />
-                  {{ player.player_name }}
-                  <ul>
-                    <li>Value When Traded: {{ player.value_when_traded == 0 ? '?' : player.value_when_traded }}</li>
-                    <li>Latest Value:
-                      {{
-                      player.value_now_as_of === ''
-                      ? '?'
-                      : ' (' + player.value_now_as_of + '): ' + (player.latest_value === 0 ? '?' :
-                      player.latest_value)
-                      }}
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </div>
-
-            <!-- Display draft picks for this roster -->
-            <div *ngIf="roster.draft_picks.length > 0;">
-              <ul>
-                <h5>Draft Picks:</h5>
-                <li *ngFor="let pick of roster.draft_picks">
-                  {{ pick.description }}
-                  <ul>
-                    <li *ngIf="pick.player_drafted">{{ pick.player_drafted.player_name }}</li>
-                    <li>Value When Traded: {{ pick.value_when_traded }}</li>
-                    <li *ngIf="pick.player_drafted">Latest Value: {{ pick.player_drafted.latest_value }}</li>
-                  </ul>
-                </li>
-              </ul>
-            </div>
-
-          </div>
-        </div>
-      </div>
-      <div>
-        <app-line-chart [trade]="selectedTrade"></app-line-chart>
-      </div>
+    <div *ngIf="selectedTrade && tradeResponse">
+      <app-trade-details [leagueUsers]="tradeResponse.league_users" [selectedTrade]="selectedTrade"></app-trade-details>
     </div>
   </div>
 </div>

@@ -15,9 +15,9 @@ import { CommonModule } from '@angular/common';
 import { importProvidersFrom } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { provideHttpClient } from '@angular/common/http';
-import { TradeComponent } from './components/trade/trade.component'
-import { LeftNavComponent } from './components/left-nav/left-nav.component'
-import { LineChartComponent } from './components/chart/line-chart.component';
+// import { TradeComponent } from './components/trade/trade.component'
+// import { LeftNavComponent } from './components/left-nav/left-nav.component'
+// import { PlayerValuesChartComponent } from './components/trade/trade-details/player-values-chart/player-values-chart.component';
 
 export const appConfig: ApplicationConfig = {
   providers: [

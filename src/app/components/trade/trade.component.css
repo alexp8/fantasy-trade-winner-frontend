@@ -102,27 +102,9 @@
   background-color: #d6d6ce;
 }
 
-.player-avatar {
-  /* width: 25px;  */
-  /* height: 20px; */
-  width: 15%;
-  aspect-ratio: 25 / 16;
-}
-
-/* Container that holds all roster blocks side by side */
-.roster-container {
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-}
-
-/* Individual roster block */
-.roster-block {
-  flex: 1;
-  padding: 20px;
-  border: 1px solid #ddd;
-  max-width: 400px;
-  box-sizing: border-box;
+.roster-username {
+  margin: 0;
+  font-size: 18px;
 }
 
 /* Styling for players and picks */
@@ -152,29 +134,6 @@ h5 {
   border-radius: 50%;
 }
 
-.roster-username {
-  margin: 0;
-  font-size: 18px;
-}
-
-.roster-won {
-  border: 2px solid rgba(50, 145, 50, 0.7);
-  box-shadow: 0 0 10px rgba(50, 145, 50, 0.7);
-  background-color: transparent;
-}
-
-.roster-tie {
-  border: 2px solid rgba(212, 80, 80, 0.132);
-  box-shadow: 0 0 10px rgba(119, 119, 119, 0.7);
-  background-color: transparent;
-}
-
-.roster-lost {
-  border: 2px solid rgba(212, 80, 80, 0.132);
-  box-shadow: 0 0 10px rgba(222, 79, 79, 0.7);
-  background-color: transparent;
-}
-
 .loading-container {
   display: flex;
   justify-content: center;
@@ -192,17 +151,6 @@ h5 {
   height: auto;
 }
 
-.value-container {
-  display: flex;
-  align-items: center;
-}
-
-.value-change-icon {
-  margin-left: 2px;
-  margin-bottom: 3px;
-  width: 25px;
-  height: 25px;
-}
 
 .avatar-dropdown {
   width: 20px;

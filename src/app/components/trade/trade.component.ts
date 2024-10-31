@@ -3,17 +3,17 @@ import { TradeService } from '../../services/trade.service';
 import { TradeResponse, Trade, LeagueUser } from '../../models/trade.model';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { LineChartComponent } from '../chart/line-chart.component';
-import { TradePaginationComponent } from '../trade-pagination/trade-pagination.component';
-import { TradeHomeComponent } from '../trade-home/trade-home.component';
+import { TradePaginationComponent } from './trade-pagination/trade-pagination.component';
+import { TradeHomeComponent } from './trade-home/trade-home.component';
 import { TradeScrollItemComponent } from './trade-scroll-item.component';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
+import { TradeDetailsComponent } from './trade-details/trade-details.component';
 
 @Component({
   selector: 'app-trades',
   standalone: true,
-  imports: [CommonModule, FormsModule, LineChartComponent, TradePaginationComponent, TradeHomeComponent, TradeScrollItemComponent],
+  imports: [CommonModule, FormsModule, TradePaginationComponent, TradeHomeComponent, TradeScrollItemComponent, TradeDetailsComponent],
   templateUrl: './trade.component.html',
   styleUrls: ['./trade.component.css']
 })
@@ -28,11 +28,11 @@ export class TradeComponent implements OnInit {
   where_them_trades_at_url = "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExNnRwcXdpa2w1emdkZmNxY2pmam10eDdnZXY2ZWpxZmV2a3RtNzc3NiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/OStrMR6ykemf0Bkk1x/giphy.webp"
   selectedRoster: string = 'all';
   leagueThumb: String = "https://sleepercdn.com/avatars/thumbs"
-  playerThumb: String = "https://sleepercdn.com/content/nfl/players/thumb"
   dropdownOpen = false;
   selectedRosterId: number | string = "all";
   selectedUser: LeagueUser | null = null;
-
+  rosterAvatars: { [rosterId: number]: string } = {};
+  
   constructor(private tradeService: TradeService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -45,16 +45,13 @@ export class TradeComponent implements OnInit {
     if (this.sleeperLeagueId) {
       this.fetchTrades(this.currentPage, this.selectedRosterId, this.selectedTradeId);
     }
+    
   }
 
   onLeagueIdChange(newLeagueId: string) {
     this.sleeperLeagueId = newLeagueId;
 
     this.router.navigate(['trades', newLeagueId]);
-  }
-
-  getPlayerImageUrl(sleeperPlayerId: string): string {
-    return `${this.playerThumb}/${sleeperPlayerId}.jpg`;
   }
 
   getLeagueAvatar(): string {
@@ -68,6 +65,7 @@ export class TradeComponent implements OnInit {
   navigateToMyLeagues() {
     this.router.navigate(['/my-leagues']);
   }
+  
 
   getRosterAvatar(rosterId: number): string {
 

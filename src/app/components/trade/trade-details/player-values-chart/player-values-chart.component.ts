@@ -12,8 +12,8 @@ import {
   Legend,
   LineController
 } from 'chart.js';
-import { KtcValue, Trade } from '../../models/trade.model';
-import 'chartjs-adapter-date-fns'; 
+import { KtcValue, Trade } from '../../../../models/trade.model';
+import 'chartjs-adapter-date-fns';
 
 interface DataPoint {
   x: string;  // Date as a string
@@ -21,14 +21,14 @@ interface DataPoint {
 }
 
 @Component({
-  selector: 'app-line-chart',
+  selector: 'app-player-values-chart',
   standalone: true,
-  templateUrl: './line-chart.component.html',
-  styleUrls: ['./line-chart.component.css']
+  templateUrl: './player-values-chart.component.html',
+  styleUrls: ['./player-values-chart.component.css']
 })
-export class LineChartComponent implements OnInit {
+export class PlayerValuesChartComponent implements OnInit {
 
-  @Input() trade!: Trade;
+  @Input() trade!: Trade | null;
   private chart: Chart<'line', DataPoint[]> | undefined
 
   private greenShades = [
@@ -62,11 +62,12 @@ export class LineChartComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.renderChart(this.trade);
+    if (this.trade)
+      this.renderChart(this.trade);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['trade']) {
+    if (changes['trade'] && this.trade) {
       this.renderChart(this.trade);
     }
   }
