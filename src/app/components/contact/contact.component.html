@@ -1,1 +1,40 @@
-<p>contact works!</p>
+<div *ngIf="loading">
+    <img src="{{ loadingGif }}" alt="" />
+</div>
+
+<div class="contact-form-container">
+    <div class="contact-form">
+        <h3>Submit Feedback</h3>
+        <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+            <div>
+                <label for="category">Category</label>
+                <select id="category" formControlName="category" required>
+                    <option value="" disabled selected>Select a category</option>
+                    <option *ngFor="let option of categories" [value]="option">{{ option }}</option>
+                </select>
+                <div *ngIf="contactForm.get('category')?.invalid && contactForm.get('category')?.touched" class="error">
+                    Please select a category.
+                </div>
+            </div>
+
+            <div>
+                <label for="message">Message</label>
+                <textarea id="message" formControlName="message" rows="5"
+                    placeholder="Enter your message here"></textarea>
+                <div *ngIf="contactForm.get('message')?.invalid && contactForm.get('message')?.touched" class="error">
+                    Message must be at least 10 characters long.
+                </div>
+            </div>
+            <div *ngIf="submittedMsg" class="feedback-submitted-msg">
+                <p>Feedback submitted!</p>
+            </div>
+
+            <button type="submit" [disabled]="contactForm.invalid">Submit</button>
+        </form>
+    </div>
+
+</div>
+
+<footer class="footer">
+    <p>Additional Contact: <a href="mailto:dynastytradetycoon&#64;gmail.com">dynastytradetycoon&#64;gmail.com</a></p>
+</footer>

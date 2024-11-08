@@ -1,0 +1,70 @@
+.contact-form-container {
+  max-width: 500px;
+  margin: 0px auto;
+  background-color: #7e78c2b6;
+  border-color: #000000;
+  border-radius: 2%;
+  padding: 10px;
+}
+
+.contact-form {
+  margin: 20px;
+}
+
+label {
+  font-weight: bold;
+  display: block;
+  margin-top: 10px;
+  color: #d0d1e1;
+}
+
+h3 {
+  color: #e2e3f2;
+}
+
+.feedback-submitted-msg {
+  color: #1e700a
+}
+
+select {
+  font-size: 18px;
+}
+
+textarea {
+  width: 100%;
+  resize: vertical;
+  font-size: 18px;
+}
+
+button {
+  margin-top: 15px;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.footer {
+  background-color: #333; /* Dark background for contrast */
+  color: #fff; /* White text color for readability */
+  padding: 20px; /* Adds space inside the footer */
+  text-align: center; /* Centers the text */
+  position: fixed; /* Sticks the footer to the bottom of the page */
+  width: 100%; /* Full width footer */
+  bottom: 0; /* Positions at the bottom */
+}
+
+.footer a {
+  color: #00aaff; /* Color for the link */
+  text-decoration: none; /* Remove underline */
+}
+
+.footer a:hover {
+  text-decoration: underline; /* Adds underline on hover */
+}

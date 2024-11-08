@@ -1,0 +1,22 @@
+<div class="feedback-container">
+    <h2>Feedback</h2>
+
+    <div *ngIf="loading" class="loading">Loading...</div>
+    <div *ngIf="error" class="error">{{ error }}</div>
+
+    <div *ngIf="!loading && !error">
+        <ul class="feedback-list">
+            <li *ngFor="let feedback of feedbackList" class="feedback-item">
+                <h3>{{ feedback.category }}</h3>
+                <p>{{ feedback.message }}</p>
+                <span class="created-at">Submitted on: {{ feedback.created_at | date: 'medium' }}</span>
+            </li>
+        </ul>
+
+        <div class="pagination">
+            <button (click)="goToPreviousPage()" [disabled]="!hasPrevious">Previous</button>
+            <span>Page {{ currentPage }} of {{ totalPages }}</span>
+            <button (click)="goToNextPage()" [disabled]="!hasNext">Next</button>
+        </div>
+    </div>
+</div>

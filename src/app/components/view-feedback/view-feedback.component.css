@@ -1,0 +1,59 @@
+.feedback-container {
+    width: 60%;
+    margin: 0 auto;
+    padding: 1em;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #e4dfdf;
+  }
+  
+  h2 {
+    text-align: center;
+    margin-bottom: 1em;
+  }
+  
+  .loading, .error {
+    text-align: center;
+    font-size: 1.2em;
+    color: #666;
+  }
+  
+  .feedback-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .feedback-item {
+    padding: 1em;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .feedback-item h3 {
+    margin: 0 0 0.5em;
+    color: #333;
+  }
+  
+  .feedback-item p {
+    margin: 0;
+  }
+  
+  .created-at {
+    font-size: 0.9em;
+    color: #888;
+  }
+  
+  .pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 1em;
+  }
+  
+  .pagination button {
+    margin: 0 5px;
+    padding: 0.5em 1em;
+  }
+  
+  .pagination span {
+    line-height: 2em;
+  }
+  

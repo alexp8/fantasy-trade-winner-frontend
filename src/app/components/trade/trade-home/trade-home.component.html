@@ -2,11 +2,7 @@
   <div style="display: flex; align-items: center;"> <!-- Align items center -->
     <label for="sleeper-league-id" class="sleeper-label">Sleeper League ID</label>
     <a class="info-icon" title="What is my league ID?" (click)="goToMyLeague($event)">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="bi bi-question-circle" viewBox="0 0 16 16">
-        <circle cx="8" cy="8" r="7" fill="blue" />
-        <path fill="white"
-          d="M8 7h1a1 1 0 1 1-1-1c0-.373.175-.653.293-.82.131-.183.316-.388.54-.507A1.012 1.012 0 0 1 8.998 4a1.002 1.002 0 0 1 1 1c0 .15-.032.287-.086.41-.052.119-.136.252-.258.392C8.67 5.82 8 6.37 8 7zM9 11.002a1 1 0 1 1-2 0h2z" />
-      </svg>
+      <app-my-league-icon></app-my-league-icon>
     </a>
   </div>
   <input id="sleeper-league-id" class="input" type="text" [(ngModel)]="sleeperLeagueId"

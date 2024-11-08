@@ -5,11 +5,13 @@ import { LeaderboardService } from '../../services/leaderboard.service';
 import { LeaderboardResponse } from '../../models/leaderboard.model';
 import { LeagueUser } from '../../models/trade.model';
 import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
+import { MyLeagueIconComponent } from '../my-league-icon/my-league-icon.component';
 
 @Component({
     selector: 'app-leaderboard',
     standalone: true,
-    imports: [CommonModule, FormsModule],
+    imports: [CommonModule, FormsModule, MyLeagueIconComponent],
     templateUrl: './leaderboard.component.html',
     styleUrl: './leaderboard.component.css'
 })
@@ -22,8 +24,11 @@ export class LeaderboardComponent {
     sleeperLeagueId: string | null = null;
     leaderboardResponse: LeaderboardResponse | null = null;
 
-    constructor(private leaderboardService: LeaderboardService, private route: ActivatedRoute) { }
+    constructor(private leaderboardService: LeaderboardService, private route: ActivatedRoute, private router: Router) { }
 
+    goToMyLeague(event: MouseEvent): void {
+        this.router.navigate(['/my-leagues']);
+      }
 
     ngOnInit(): void {
 

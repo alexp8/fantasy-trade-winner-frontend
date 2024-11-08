@@ -4,9 +4,14 @@
     </div>
 
     <div class="input-container">
-        <label for="sleeper-user-name" class="sleeper-label">Sleeper League Id</label>
+        <div style="display: flex; align-items: center;">
+            <label for="sleeper-user-name" class="sleeper-label">Sleeper League Id</label>
+            <a class="info-icon" title="What is my league ID?" (click)="goToMyLeague($event)">
+                <app-my-league-icon></app-my-league-icon>
+            </a>
+        </div>
         <input id="sleeper-user-name" type="text" class="input" [(ngModel)]="sleeperLeagueId"
-            placeholder="Enter Sleeper username" />
+            placeholder="12345678234" />
         <button (click)="fetchLeaderboard()" [disabled]="loading" class="button">Fetch Leagues</button>
     </div>
 </div>

@@ -2,11 +2,12 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms'; // Import FormsModule
 import { CommonModule } from '@angular/common';
+import { MyLeagueIconComponent } from '../../my-league-icon/my-league-icon.component';
 
 @Component({
   selector: 'app-trade-home',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, MyLeagueIconComponent],
   templateUrl: './trade-home.component.html',
   styleUrls: ['./trade-home.component.css'
   ]
